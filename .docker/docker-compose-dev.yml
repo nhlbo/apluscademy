@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - ../mongo_data:/data/db
+  webapp:
+    container_name: apluscademy
+    build:
+      context: ..
+      dockerfile: .docker/webapp.Dockerfile
+    command: yarn devStartServer
+    volumes:
+      - ..:/code
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    tty: true
+  nginx:
+    image: nginx:1.23.3-perl
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - '80:80'
+    depends_on:
+      - webapp
