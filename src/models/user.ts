@@ -1,10 +1,18 @@
-import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
+import mongoose from 'mongoose'
 
 interface IUser {
   name: string
   email: string
   password: string
+}
+
+declare global {
+  namespace Express {
+    interface User extends IUser {
+      id: string
+    }
+  }
 }
 
 const userSchema = new mongoose.Schema({
