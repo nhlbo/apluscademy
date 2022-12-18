@@ -45,4 +45,12 @@ const postLoginPassword = passport.authenticate('local', {
   failureRedirect: '/login'
 })
 
-export { postRegister, getLogin, postLoginPassword }
+const postLogout = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    console.log('logout')
+    if (err) return next(err)
+    res.redirect('/')
+  })
+})
+
+export { postRegister, getLogin, postLoginPassword, postLogout }
