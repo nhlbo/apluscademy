@@ -15,7 +15,7 @@ const getLogin = asyncHandler(async (_, res) => {
 })
 
 passport.use(
-  new Strategy(async function verify(email, password, cb) {
+  new Strategy({ usernameField: 'email' }, async function verify(email, password, cb) {
     const user = await User.findOne({ email }).select('+password')
     if (!user) {
       return cb(null, false, { message: 'Incorrect username or password.' })
@@ -27,6 +27,18 @@ passport.use(
     return cb(null, user)
   })
 )
+
+passport.serializeUser(function (user: Express.User, cb) {
+  process.nextTick(function () {
+    cb(null, { id: user.id, username: user.email })
+  })
+})
+
+passport.deserializeUser(function (user: Express.User, cb) {
+  process.nextTick(function () {
+    return cb(null, user)
+  })
+})
 
 const postLoginPassword = passport.authenticate('local', {
   successRedirect: '/',

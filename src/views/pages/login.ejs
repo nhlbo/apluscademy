@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <%- include('../partials/head'); %>
-  </head>
-  <body class="">
-    <header><%- include('../partials/header'); %></header>
+</head>
+<body>
 
-    <main>
-      <h1>Sign in</h1>
-      <form action="/login/password" method="post">
-        <section>
-          <label for="username">Username</label>
-          <input id="username" name="username" type="text" autocomplete="username" required autofocus />
-        </section>
-        <section>
-          <label for="current-password">Password</label>
-          <input id="current-password" name="password" type="password" autocomplete="current-password" required />
-        </section>
-        <button type="submit">Sign in</button>
-      </form>
-    </main>
+<header>
+    <%- include('../partials/header'); %>
+</header>
 
-    <footer><%- include('../partials/footer'); %></footer>
-  </body>
+<main>
+    <div class="flex justify-between py-8">
+        <div class="w-full flex justify-center">
+            <div class="w-80 h-full flex items-center mx-8">
+                <form class="form-control w-full grid" action="/login/password" method="post">
+                    <span class="text-3xl font-semibold">Sign in</span>
+                    <label class="label mt-5">
+                        <span class="label-text">Email</span>
+                    </label>
+                    <input type="text" placeholder="Email" name="email" class="input input-bordered w-full max-w-xs"
+                           autofocus/>
+                    <label class="label">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input type="password" placeholder="Password" name="password"
+                           class="input input-bordered w-full max-w-xs"/>
+                    <div class="flex justify-between mt-5">
+                        <label class="label cursor-pointer">
+                            <input type="checkbox" checked="checked" class="checkbox"/>
+                            <span class="label-text ml-2">Remember me</span>
+                        </label>
+                        <button>Forgot password?</button>
+                    </div>
+                    <div class="divider mt-7">Or continue with</div>
+                    <div class="flex justify-around mt-3">
+                        <button class="btn w-24 btn-outline">
+                            Sign up
+                        </button>
+                        <button class="btn w-24 btn-outline">
+                            <i class="fa-brands fa-facebook fa-lg"></i>
+                        </button>
+                        <button class="btn w-24 btn-outline">
+                            <i class="fa-brands fa-google fa-lg"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-block justify-self-center mt-10">Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="max-max-h-[32rem] flex justify-end">
+            <img class="h-full object-cover" src="images/login-background.png">
+        </div>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
 </html>
