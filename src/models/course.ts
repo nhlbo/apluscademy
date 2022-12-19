@@ -53,7 +53,7 @@ const courseSchema = new mongoose.Schema({
         min: 0,
         default: 0
     },
-    registrationCount: {
+    enrolmentCount: {
         type: Number,
         min: 0,
         default: 0,
