@@ -17,6 +17,7 @@ app.set('view engine', 'ejs')
 
 app.use(homeRoute)
 app.use(authRoute)
+app.use(express.static('public'))
 
 app.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}.`)
