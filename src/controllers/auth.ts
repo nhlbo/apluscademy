@@ -26,14 +26,14 @@ const postLogout = asyncHandler(async (req, res, next) => {
   })
 })
 
-// const isAuthenticated = asyncHandler(async (req, res, next) => {
-//   if (req.isAuthenticated()) return next()
-//   res.redirect('/login')
-// })
+const isAuthenticated = asyncHandler(async (req, res, next) => {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/login')
+})
 
 // const isNotAuthenticated = asyncHandler(async (req, res, next) => {
 //   if (!req.isAuthenticated()) return next()
 //   res.redirect('/')
 // })
 
-export { postRegister, getLogin, postLoginPassword, postLogout }
+export { postRegister, getLogin, postLoginPassword, postLogout, isAuthenticated }
