@@ -20,7 +20,6 @@ const postLoginPassword = passport.authenticate('local', {
 
 const postLogout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
-    console.log('logout')
     if (err) return next(err)
     res.redirect('/')
   })
@@ -31,9 +30,9 @@ const isAuthenticated = asyncHandler(async (req, res, next) => {
   res.redirect('/login')
 })
 
-// const isNotAuthenticated = asyncHandler(async (req, res, next) => {
-//   if (!req.isAuthenticated()) return next()
-//   res.redirect('/')
-// })
+const isNotAuthenticated = asyncHandler(async (req, res, next) => {
+  if (!req.isAuthenticated()) return next()
+  res.redirect('/')
+})
 
-export { postRegister, getLogin, postLoginPassword, postLogout, isAuthenticated }
+export { postRegister, getLogin, postLoginPassword, postLogout, isAuthenticated, isNotAuthenticated }

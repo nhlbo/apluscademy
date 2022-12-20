@@ -27,7 +27,6 @@ interface IUser extends mongoose.Document {
 declare global {
   namespace Express {
     interface User extends IUser {
-      id: string
     }
   }
 }
