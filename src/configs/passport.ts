@@ -31,7 +31,7 @@ passport.use(
     {
       clientID: FACEBOOK_ID,
       clientSecret: FACEBOOK_SECRET,
-      callbackURL: '/auth/facebook/callback',
+      callbackURL: '/login/facebook/callback',
       profileFields: ['email', 'displayName', 'profileUrl', 'gender'],
       passReqToCallback: true
     },

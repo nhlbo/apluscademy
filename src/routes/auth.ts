@@ -10,8 +10,14 @@ router.route('/login').get(authController.getLogin)
 router.route('/login/password').post(authController.postLoginPassword)
 router.route('/oauth2/redirect/facebook').get(passport.authenticate('facebook'))
 router
-  .route('/auth/facebook/callback')
+  .route('/login/facebook/callback')
   .get(passport.authenticate('facebook', { failureRedirect: '/login' }), (_, res) => {
+    res.redirect('/')
+  })
+router.route('/oauth2/redirect/google').get(passport.authenticate('google'))
+router
+  .route('/login/google/callback')
+  .get(passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }), (_, res) => {
     res.redirect('/')
   })
 
