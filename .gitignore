@@ -13,3 +13,4 @@ yarn-error.log
 dist
 mongo_data
 sessions
+local.env
