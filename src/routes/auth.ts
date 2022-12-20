@@ -5,6 +5,7 @@ import * as authController from '../controllers/auth'
 
 const router = express.Router()
 
+router.route('/register').get(authController.isNotAuthenticated, authController.getRegister)
 router.route('/register').post(authController.postRegister)
 router.route('/login').get(authController.isNotAuthenticated, authController.getLogin)
 router.route('/login/password').post(authController.postLoginPassword)
