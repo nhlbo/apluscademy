@@ -74,9 +74,7 @@ passport.use(
           return done(null, existingUser)
         }
         const email = profile.emails ? profile.emails[0] : null
-          console.log('email = ', email)
         const user: IUser = (email !== null ? await User.findOne({ email }) : null) || new User()
-          console.log(user)
         user.google = profile.id
         user.profile.name = profile.displayName!
         user.profile.picture = profile.photos![0].value

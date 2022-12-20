@@ -1,12 +1,27 @@
+import { MongoError } from 'mongodb'
 import passport from 'passport'
 import '../configs/passport'
 import { asyncHandler } from '../middlewares/async'
 import { IUser, User } from '../models/user'
 
-const postRegister = asyncHandler(async (req, res) => {
+const getRegister = asyncHandler(async (_, res) => {
+  res.render('pages/signup')
+})
+
+const postRegister = asyncHandler((req, res) => {
   const user: IUser = req.body
-  const newUser = await User.create(user)
-  res.send('success ' + newUser.id)
+  User.create(user)
+    .then(() => res.redirect('/'))
+    .catch((err) => {
+      let msg: string = err
+      if ((err as MongoError).code === 11000) {
+        msg = 'This email has been signed up.'
+      } else if (req.body.password !== req.body['confirm-password']) {
+        msg = 'Password and confirm password do not match.'
+      }
+      req.flash('errors', msg)
+      res.render('pages/signup')
+    })
 })
 
 const getLogin = asyncHandler(async (_, res) => {
@@ -35,4 +50,4 @@ const isNotAuthenticated = asyncHandler(async (req, res, next) => {
   res.redirect('/')
 })
 
-export { postRegister, getLogin, postLoginPassword, postLogout, isAuthenticated, isNotAuthenticated }
+export { getRegister, postRegister, getLogin, postLoginPassword, postLogout, isAuthenticated, isNotAuthenticated }
