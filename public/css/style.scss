@@ -1,0 +1,53 @@
+#content {
+  position: absolute;
+  list-style: none;
+  display: inline-block;
+  overflow: hidden;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+
+  li {
+    display: none;
+    position: relative;
+    line-height: 100%;
+
+    &.active {
+      display: inline-block;
+
+      &.typing {
+        @include opacity(0);
+      }
+    }
+  }
+
+  .fakeContent {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    height: 1em;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100vw;
+      height: 1em;
+      left: calc(100% - 0.1em);
+      top: 0;
+      z-index: -2;
+      background-color: $select-color;
+      @include background-clip(padding-box);
+    }
+
+    &.typing:after {
+      background-color: transparent;
+      @include animation(none);
+      left: 100%;
+    }
+
+    &.selecting:after {
+      @include animation(none);
+    }
+  }
+}
