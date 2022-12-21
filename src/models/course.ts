@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { ICategory } from './category'
 import { IUser } from './user'
-import { IReview } from './review'
+import { IReview, Review } from './review'
 
 interface ICourse {
   category: ICategory
@@ -66,7 +66,10 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     min: 0
   },
-  reviews: [mongoose.Types.ObjectId],
+  reviews: {
+    type: [mongoose.Types.ObjectId],
+    ref: Review
+  },
   thumbnailSmall: String,
   thumbnailLarge: String,
   basePrice: {
