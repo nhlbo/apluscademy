@@ -2,9 +2,9 @@ import mongoose from 'mongoose'
 import { ICourse } from './course'
 
 interface ICategory {
-    name: string
-    getLastWeekRegistrationCount(): number // used in the query "Which category has had the most registrations in the last week?"
-    getCourses(): Array<ICourse>
+  name: string
+  getLastWeekRegistrationCount(): number // used in the query "Which category has had the most registrations in the last week?"
+  getCourses(): Array<ICourse>
 }
 
 const categorySchema = new mongoose.Schema({
@@ -16,7 +16,6 @@ const categorySchema = new mongoose.Schema({
   },
   courses: [mongoose.Types.ObjectId]
 })
-
 
 const Category = mongoose.model('Course', categorySchema)
 
