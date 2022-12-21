@@ -22,7 +22,13 @@ const reviewSchema = new mongoose.Schema({
     required: [true, 'Please add a star rating']
   },
   feedback: {
-    type: String
+    type: String,
+    required: [true, 'Please add your feedback']
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+    required: [true, 'Reviews must have a date']
   }
 })
 
