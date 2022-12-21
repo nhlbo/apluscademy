@@ -28,7 +28,7 @@ Element.prototype.typeAndDelete = function (options) {
     typeTimePerWord = options.typeTimePerWord || 150,
     delayAfterSelect = options.delayAfterSelect || 500,
     delayAfterDelete = options.delayAfterDelete || 1000,
-    delayBetweenWords = options.delayBetweenWords || 3000
+    delayBetweenWords = options.delayBetweenWords || 1500
 
   // create fake content
   var fakeContent = contentList.getElementsByClassName('fakeContent')[0]
@@ -102,5 +102,5 @@ Element.prototype.typeAndDelete = function (options) {
 }
 
 document.getElementById('content').typeAndDelete({
-  delayAfterDelete: 500
+  delayAfterDelete: 400
 })

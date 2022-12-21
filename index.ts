@@ -3,7 +3,7 @@ import session from 'express-session'
 import mongoose from 'mongoose'
 import passport from 'passport'
 import flash from 'express-flash'
-import { authRoute, homeRoute } from './src/routes'
+import { authRoute, homeRoute, courseRoute } from './src/routes'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -33,7 +33,7 @@ app.use(express.static('public'))
 
 app.use(homeRoute)
 app.use(authRoute)
-app.use(express.static('public'))
+app.use('/course', courseRoute)
 
 app.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}.`)
