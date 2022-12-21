@@ -2,11 +2,13 @@ import mongoose from 'mongoose'
 import { ICategory } from './category'
 import { IUser } from './user'
 import { IReview } from './review'
+import { IChapter } from './chapter'
 
 interface ICourse {
   category: ICategory
   lecturer: IUser
   getReviews(): Array<IReview>
+  getChapters(): Array<IChapter>
 }
 
 const courseSchema = new mongoose.Schema({
@@ -67,6 +69,10 @@ const courseSchema = new mongoose.Schema({
   reviews: {
     type: [mongoose.Types.ObjectId],
     ref: 'Review'
+  },
+  chapters: {
+    type: [mongoose.Types.ObjectId],
+    ref: 'Chapter'
   },
   thumbnailSmall: String,
   thumbnailLarge: String,
