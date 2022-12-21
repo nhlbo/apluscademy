@@ -62,10 +62,9 @@ const courseSchema = new mongoose.Schema({
     min: 0,
     default: 0
   },
-  averageRatingStars: {
+  totalRatingStars: {
     type: Number,
-    min: 0,
-    max: 5
+    min: 0
   },
   reviews: [mongoose.Types.ObjectId],
   thumbnailSmall: String,
