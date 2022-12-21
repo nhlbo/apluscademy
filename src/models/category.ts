@@ -16,7 +16,8 @@ const categorySchema = new mongoose.Schema({
   },
   courses: {
     type: [mongoose.Types.ObjectId],
-    ref: 'Course'
+    ref: 'Course',
+    index: true
   }
 })
 
