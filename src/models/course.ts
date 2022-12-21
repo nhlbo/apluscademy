@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { ICategory } from './category'
-import { IUser, User } from './user'
-import { IReview, Review } from './review'
+import { IUser } from './user'
+import { IReview } from './review'
 
 interface ICourse {
   category: ICategory
@@ -13,7 +13,7 @@ const courseSchema = new mongoose.Schema({
   lecturer: {
     type: mongoose.Types.ObjectId,
     required: [true, 'Course must have a lecturer'],
-    ref: User
+    ref: 'User'
   },
   title: {
     type: String,
@@ -65,7 +65,7 @@ const courseSchema = new mongoose.Schema({
   },
   reviews: {
     type: [mongoose.Types.ObjectId],
-    ref: Review
+    ref: 'Review'
   },
   thumbnailSmall: String,
   thumbnailLarge: String,
