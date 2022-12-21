@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Category, ICategory } from './category'
+import { ICategory } from './category'
 import { IUser, User } from './user'
 import { IReview, Review } from './review'
 
@@ -10,11 +10,6 @@ interface ICourse {
 }
 
 const courseSchema = new mongoose.Schema({
-  category: {
-    type: mongoose.Types.ObjectId,
-    required: [true, 'Please select a category'],
-    ref: Category
-  },
   lecturer: {
     type: mongoose.Types.ObjectId,
     required: [true, 'Course must have a lecturer'],
