@@ -10,13 +10,10 @@ interface IReview {
 }
 
 const reviewSchema = new mongoose.Schema({
-  course: {
-    type: mongoose.Types.ObjectId,
-    required: [true, 'Review must be done on a course']
-  },
   author: {
     type: mongoose.Types.ObjectId,
-    required: [true, 'Review must have an author']
+    required: [true, 'Review must have an author'],
+    ref: 'User'
   },
   ratingStars: {
     type: Number,

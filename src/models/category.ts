@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Course, ICourse } from './course'
+import { ICourse } from './course'
 
 interface ICategory {
   name: string
@@ -16,7 +16,7 @@ const categorySchema = new mongoose.Schema({
   },
   courses: {
     type: [mongoose.Types.ObjectId],
-    ref: Course
+    ref: 'Course'
   }
 })
 
