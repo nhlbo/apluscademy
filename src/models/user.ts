@@ -22,6 +22,8 @@ interface IUser extends mongoose.Document {
     website: string
     picture: string
   }
+  ownedCourses: []
+  authoredCourses: []
 }
 
 declare global {
@@ -64,7 +66,16 @@ const userSchema = new mongoose.Schema<IUser>({
     location: String,
     website: String,
     picture: String
-  }
+  },
+  ownedCourses: [
+    {
+      course: { type: mongoose.Types.ObjectId, ref: 'Course' },
+      chapterInfo: [
+        { chapter: { type: mongoose.Types.ObjectId, ref: 'Chapter' }, timestamp: Number, completed: Boolean }
+      ]
+    }
+  ],
+  authoredCourses: { type: [mongoose.Types.ObjectId], ref: 'Course' }
 })
 
 userSchema.pre('save', function (next) {
