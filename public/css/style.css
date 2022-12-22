@@ -32,6 +32,14 @@ html {
   transition-delay: 100ms;
 }
 
+.trst-delay-250 {
+  transition-delay: 250ms;
+}
+
+.trst-delay-500 {
+  transition-delay: 500ms;
+}
+
 .course-of-week-card:nth-child(2) {
   transition-delay: 250ms;
 }
