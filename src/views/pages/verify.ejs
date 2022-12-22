@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body>
+
+<header>
+  <div class="navbar bg-base-100">
+    <a class="btn btn-ghost normal-case text-3xl" href="/">A⁺cademy</a>
+  </div>
+</header>
+
+<main>
+  <div class="flex justify-between">
+    <div class="w-full flex justify-center my-5">
+      <div class="w-80 h-full flex items-center mx-8">
+        <form class="form-control w-full grid" action="/verify" method="post">
+          <span class="text-3xl font-semibold">Verify</span>
+          <label class="label mt-5">
+            <span class="label-text">Confirmation code</span>
+          </label>
+          <input type="text" placeholder="Confirmation code" name="otp" class="input input-bordered w-full max-w-xs"
+                 autofocus/>
+          <button class="btn btn-block justify-self-center mt-10">Verify</button>
+          <% if (messages.errors) { %>
+          <div class="alert alert-error shadow-lg mt-5">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
+                   fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span><%= messages.errors %></span>
+            </div>
+          </div>
+          <% } %>
+        </form>
+      </div>
+    </div>
+    <div class="max-max-h-[32rem] flex justify-end">
+      <img class="h-full object-cover" src="images/login-background.png">
+    </div>
+  </div>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

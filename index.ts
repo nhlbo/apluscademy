@@ -3,6 +3,7 @@ import session from 'express-session'
 import mongoose from 'mongoose'
 import passport from 'passport'
 import flash from 'express-flash'
+import cookieParser from 'cookie-parser'
 import { authRoute, homeRoute, courseRoute } from './src/routes'
 
 const app = express()
@@ -24,6 +25,7 @@ app.use(
 app.use(passport.authenticate('session'))
 app.use(flash())
 
+app.use(cookieParser());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
