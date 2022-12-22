@@ -10,6 +10,7 @@ interface IUser extends mongoose.Document {
   name: string
   email: string
   password: string
+  isVerified: boolean
   role: string
   createdAt: Date
   facebook: string
@@ -48,6 +49,7 @@ const userSchema = new mongoose.Schema<IUser>({
     minlength: [8, 'Password should be 8 character long'],
     select: false
   },
+  isVerified: Boolean,
   role: {
     type: String,
     enum: ['student', 'lecturer', 'admin'],
@@ -78,6 +80,32 @@ const userSchema = new mongoose.Schema<IUser>({
   authoredCourses: { type: [mongoose.Types.ObjectId], ref: 'Course' }
 })
 
+interface IUserOTPVerification extends mongoose.Document {
+  userId: {
+    type: mongoose.Types.ObjectId
+    ref: 'User'
+  }
+  otp: string
+  createdAt: Date
+  expiresAt: Date
+}
+
+const userOTPVerificationSchema = new mongoose.Schema<IUserOTPVerification>({
+  userId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    unique: true
+  },
+  otp: String,
+  createdAt: Date,
+  expiresAt: Date
+})
+
+userSchema.pre('validate', function (next) {
+  let isValid = this.email || this.facebook || this.google
+  return isValid ? next() : next(new Error('Email must not be empty.'))
+})
+
 userSchema.pre('save', function (next) {
   const user = this
   if (!user.isModified('password')) return next()
@@ -88,6 +116,13 @@ userSchema.pre('save', function (next) {
   })
 })
 
+userOTPVerificationSchema.pre('save', function (next) {
+  this.createdAt = new Date()
+  this.expiresAt = new Date(+new Date() + 2 * 60 * 1000)
+  next()
+})
+
+const UserOTPVerification = mongoose.model('UserOTPVerification', userOTPVerificationSchema)
 const User = mongoose.model('User', userSchema)
 
-export { IUser, User }
+export { IUser, User, UserOTPVerification }

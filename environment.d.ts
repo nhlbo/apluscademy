@@ -10,6 +10,8 @@ declare global {
       FACEBOOK_SECRET: string
       GOOGLE_CLIENT_ID: string
       GOOGLE_CLIENT_SECRET: string
+      APLUSCADEMY_USERNAME: string
+      APLUSCADEMY_PASSWORD: string
     }
   }
 }
