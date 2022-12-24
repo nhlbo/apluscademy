@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header.ejs'); %></header>
+
+    <main>
+      <div class="h-screen">
+        <div class="h-36 bg-[#151618]">
+          <div class="text-white text-4xl pl-80 pt-12">
+            Happy learning,&nbsp; <span class="font-semibold"><%= userName %>!</span>
+          </div>
+        </div>
+        <div class="p-10 text-lg ml-10">
+          <div class="w-44 h-44 rounded-full bg-black ml-10 mb-10">
+            <!-- <img src="https://placeimg.com/80/80/people" /> -->
+          </div>
+
+          <div class="flex">
+            <div>Your email address is: &nbsp;</div>
+            <div class="font-semibold"><%= userEmail %></div>
+            <a href="#" class="pt-1 pl-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-square"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                />
+              </svg>
+            </a>
+          </div>
+          <div>
+            <span class="font-semibold capitalize"><%=userRole%></span> since
+            <span class="font-semibold"><%=dateCreated%></span>
+          </div>
+          <div>Total owned courses: ##</div>
+
+          <a class="btn" href="/profile/edit/name">Change name</a>
+          <a class="btn" href="/profile/edit/password">Change password</a>
+
+          <!-- <div class="max-max-h-[32rem] flex justify-end">
+          <img class="h-full object-cover" src="images/login-background.png" />
+        </div> -->
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

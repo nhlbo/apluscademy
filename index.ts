@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import flash from 'express-flash'
 import cookieParser from 'cookie-parser'
-import { authRoute, homeRoute, courseRoute } from './src/routes'
+import { authRoute, homeRoute, courseRoute, profileRoute } from './src/routes'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -25,7 +25,7 @@ app.use(
 app.use(passport.authenticate('session'))
 app.use(flash())
 
-app.use(cookieParser());
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -36,6 +36,7 @@ app.use(express.static('public'))
 app.use(homeRoute)
 app.use(authRoute)
 app.use('/course', courseRoute)
+app.use('/profile', profileRoute)
 
 app.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}.`)
