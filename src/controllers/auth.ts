@@ -93,7 +93,6 @@ const getVerifyEmail = asyncHandler(async (_, res) => {
 
 const postVerifyEmail = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.cookies.userEmail })
-  console.log('user', user)
   if (!user) {
     req.flash('errors', 'Invalid email.')
     res.render('pages/verify')
