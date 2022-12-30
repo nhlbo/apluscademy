@@ -26,14 +26,22 @@ const getChangePassword = asyncHandler(async (req, res) => {
 })
 
 const postChangePassword = asyncHandler(async (req, res, next) => {
-  if (req.body.newPassword !== req.body['confirm-new-password']) {
-    req.flash('errors', 'Password and confirm password do not match.')
-    res.render('pages/edit_password', { isAuthenticated: req.isAuthenticated() })
+  const user = await User.findById(req.user!.id)
+  const isMatchedPassword = await user?.schema.methods.checkPassword(req.body.currentPassword, req.user!.id)
+  console.log(isMatchedPassword)
+  if (!isMatchedPassword) {
+    res.redirect('/profile')
     return next()
   }
-  const user = await User.findById(req.user!.id)
+  console.log('part 2')
+  if (req.body.newPassword !== req.body['confirm-new-password']) {
+    req.flash('errors', 'Password and confirm password do not match.')
+    res.redirect('/profile')
+    return next()
+  }
   user!.password = req.body.newPassword
   user?.save()
+  console.log('da doi mat khau')
   res.redirect('/profile')
 })
 
