@@ -116,6 +116,15 @@ userSchema.pre('save', function (next) {
   })
 })
 
+userSchema.methods.checkPassword = async function (password: string, id: string) {
+  const user = await User.findOne({ id }).select('password').exec()
+  const isPassword = await bcrypt.compare(password, user?.password!)
+  if (isPassword) {
+    return true
+  }
+  return false
+}
+
 userOTPVerificationSchema.pre('save', function (next) {
   this.createdAt = new Date()
   this.expiresAt = new Date(+new Date() + 2 * 60 * 1000)
