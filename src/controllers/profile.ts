@@ -28,21 +28,25 @@ const getChangePassword = asyncHandler(async (req, res) => {
 const postChangePassword = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user!.id)
   const isMatchedPassword = await user?.schema.methods.checkPassword(req.body.currentPassword, req.user!.id)
-  console.log(isMatchedPassword)
   if (!isMatchedPassword) {
-    res.redirect('/profile')
+    req.flash('errors', 'Wrong password.')
+    res.redirect('/profile#password-form-location')
     return next()
   }
-  console.log('part 2')
+  if (req.body.currentPassword == req.body.newPassword) {
+    req.flash('errors', 'New password can not be the same as the old one.')
+    res.redirect('/profile#password-form-location')
+    return next()
+  }
   if (req.body.newPassword !== req.body['confirm-new-password']) {
     req.flash('errors', 'Password and confirm password do not match.')
-    res.redirect('/profile')
+    res.redirect('/profile#password-form-location')
     return next()
   }
   user!.password = req.body.newPassword
   user?.save()
-  console.log('da doi mat khau')
-  res.redirect('/profile')
+  req.flash('successStatus', 'Password changed!')
+  res.redirect('/profile#password-form-location')
 })
 
 export { getProfile, getChangeName, postChangeName, getChangePassword, postChangePassword }
