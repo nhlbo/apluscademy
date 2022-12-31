@@ -21,6 +21,6 @@ const categorySchema = new mongoose.Schema({
   }
 })
 
-const Category = mongoose.model('Course', categorySchema)
+const Category = mongoose.model('Category', categorySchema)
 
 export { ICategory, Category }

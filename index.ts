@@ -6,7 +6,11 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import flash from 'express-flash'
 import cookieParser from 'cookie-parser'
+<<<<<<< HEAD
 import { authRoute, homeRoute, courseRoute, profileRoute, lecturerRoute } from './src/routes'
+=======
+import { authRoute, homeRoute, courseRoute, profileRoute, CategoryRoute } from './src/routes'
+>>>>>>> c0cf458 (feat: add category)
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -39,7 +43,11 @@ app.use(homeRoute)
 app.use(authRoute)
 app.use('/course', courseRoute)
 app.use('/profile', profileRoute)
+<<<<<<< HEAD
 app.use('/lecturer', lecturerRoute)
+=======
+app.use('/category', CategoryRoute)
+>>>>>>> c0cf458 (feat: add category)
 
 app.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}.`)
