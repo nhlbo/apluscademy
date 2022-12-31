@@ -9,6 +9,8 @@ const LocalStrategy = passportLocal.Strategy
 const FacebookStrategy = passportFacebook.Strategy
 const GoogleStrategy = passportGoogle.Strategy
 
+const CALLBACK_DOMAIN = process.env.CALLBACK_DOMAIN || ''
+
 passport.use(
   new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, cb) => {
     const user = await User.findOne({ email }).select('+password')
@@ -33,7 +35,7 @@ passport.use(
     {
       clientID: FACEBOOK_ID,
       clientSecret: FACEBOOK_SECRET,
-      callbackURL: '/login/facebook/callback',
+      callbackURL: `${CALLBACK_DOMAIN}/login/facebook/callback`,
       profileFields: ['email', 'displayName', 'gender'],
       passReqToCallback: true
     },
@@ -63,7 +65,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: '/login/google/callback'
+      callbackURL: `${CALLBACK_DOMAIN}/login/google/callback`
     },
     (_accessToken, _refreshToken, profile, done) => {
       User.findOne({ google: profile.id }, async (err: NativeError, existingUser: IUser) => {
