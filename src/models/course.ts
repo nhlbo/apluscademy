@@ -12,6 +12,7 @@ interface ICourse {
 }
 
 const courseSchema = new mongoose.Schema({
+  image: Buffer,
   lecturer: {
     type: mongoose.Types.ObjectId,
     required: [true, 'Course must have a lecturer'],

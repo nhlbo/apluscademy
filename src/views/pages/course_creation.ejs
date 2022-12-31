@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/css/style.scss" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="">
+    <header><%- include('../partials/header'); %></header>
+    <main class="h-screen">
+      <div class="flex justify-around mt-16 border ml-36 mr-36 rounded-box pt-8 pb-8">
+        <div class="flex justify-between w-full ml-10 mr-10">
+          <div class="mt-3 font-semibold text-xl">Jump Into Course Creation</div>
+          <button class="btn justify-self-center w-72" onclick="location.href='/create-course/add'">
+            <a href="/create-course/add">Add your course</a>
+          </button>
+        </div>
+      </div>
+
+      <div class="divider mt-16 ml-24 mr-24 opacity-75"></div>
+
+      <div class="flex justify-around">
+        <div class="text-4xl font-semibold opacity-80 mt-5 mb-10">
+          Your
+          <span class="magic">
+            <span class="magic-star">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z"
+                />
+              </svg>
+            </span>
+            <span class="magic-star">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z"
+                />
+              </svg>
+            </span>
+            <span class="magic-star">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z"
+                />
+              </svg>
+            </span>
+            <span class="magic-text">Most Favorite</span>
+          </span>
+          Courses of All Time
+        </div>
+      </div>
+      <!-- CARD  START -->
+      <div class="h-50 flex pl-10 pr-10 ml-5 mr-5">
+        <div
+          class="carousel carousel-center max-w-md p-4 space-x-4 rounded-box hidden-on-scroll-left course-of-week-card"
+        >
+          <div class="card w-45 bg-base-100 shadow-lg">
+            <figure><img src="https://placeimg.com/400/225/arch" alt="Course name" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                Course name
+                <div class="badge badge-secondary">NEW</div>
+              </h2>
+              <p>Short introduction to course.</p>
+              <div class="card-actions justify-end">
+                <div class="badge badge-outline">Programing</div>
+                <div class="badge badge-outline">Beginner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="carousel carousel-center max-w-md p-4 space-x-4 rounded-box hidden-on-scroll-left course-of-week-card"
+        >
+          <div class="card w-45 bg-base-100 shadow-lg">
+            <figure><img src="https://placeimg.com/400/225/arch" alt="Course name" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                Course name
+                <div class="badge badge-secondary">NEW</div>
+              </h2>
+              <p>Short introduction to course.</p>
+              <div class="card-actions justify-end">
+                <div class="badge badge-outline">Programing</div>
+                <div class="badge badge-outline">Beginner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="carousel carousel-center max-w-md p-4 space-x-4 rounded-box hidden-on-scroll-left course-of-week-card"
+        >
+          <div class="card w-45 bg-base-100 shadow-lg">
+            <figure><img src="https://placeimg.com/400/225/arch" alt="Course name" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                Course name
+                <div class="badge badge-secondary">NEW</div>
+              </h2>
+              <p>Short introduction to course.</p>
+              <div class="card-actions justify-end">
+                <div class="badge badge-outline">Programing</div>
+                <div class="badge badge-outline">Beginner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="carousel carousel-center max-w-md p-4 space-x-4 rounded-box hidden-on-scroll-left course-of-week-card"
+        >
+          <div class="card w-45 bg-base-100 shadow-lg">
+            <figure><img src="https://placeimg.com/400/225/arch" alt="Course name" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                Course name
+                <div class="badge badge-secondary">NEW</div>
+              </h2>
+              <p>Short introduction to course.</p>
+              <div class="card-actions justify-end">
+                <div class="badge badge-outline">Programing</div>
+                <div class="badge badge-outline">Beginner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="carousel carousel-center max-w-md p-4 space-x-4 rounded-box hidden-on-scroll-left course-of-week-card"
+        >
+          <div class="card w-45 bg-base-100 shadow-lg">
+            <figure><img src="https://placeimg.com/400/225/arch" alt="Course name" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                Course name
+                <div class="badge badge-secondary">NEW</div>
+              </h2>
+              <p>Short introduction to course.</p>
+              <div class="card-actions justify-end">
+                <div class="badge badge-outline">Programing</div>
+                <div class="badge badge-outline">Beginner</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+
+  <script src="/script/typing_animation.js"></script>
+  <script defer src="/script/on_scroll_animation.js"></script>
+  <script defer src="/script/disable_button_empty_field.js"></script>
+  <script defer src="/script/magic_stars.js"></script>
+</html>

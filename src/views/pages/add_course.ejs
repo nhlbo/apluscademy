@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/css/style.scss" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/script/add_course.js"></script>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+    <main class="h-full">
+      <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16">
+        <div class="flex ml-10 mr-10 w-full pl-5 pt-3">
+          <form class="form-control w-full" action="/create-course/add" method="post">
+            <span class="text-3xl font-semibold">Add a course</span>
+            <label class="label mt-5">
+              <span class="label-text text-lg">Course Name</span>
+            </label>
+            <input type="text" placeholder="Course name" name="title" class="input input-bordered w-1/2" autofocus />
+
+            <label class="label mt-0">
+              <span class="label-text text-lg">Short Description</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Short course description"
+              name="shortDesc"
+              class="input input-bordered w-1/2"
+            />
+            <label class="label">
+              <span class="label-text text-lg">Long Description</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Full course description"
+              name="longDesc"
+              class="input input-bordered w-1/2"
+            />
+            <label class="label">
+              <span class="label-text text-lg">Price</span>
+            </label>
+            <input type="number" placeholder="Course price" name="basePrice" class="input input-bordered w-1/2" />
+            <label class="label">
+              <span class="label-text text-lg">Content</span>
+            </label>
+            <div class="border w-1/2">
+              <ul id="chapters" class="list-disc ml-3"></ul>
+            </div>
+            <div id="add-chapter-form" style="display: none">
+              <input
+                type="text"
+                placeholder="Chapter title"
+                name="chapterTitle"
+                class="input input-bordered w-1/2 mt-5"
+                id="chapterTitle"
+                autofocus
+              />
+              <button
+                type="button"
+                class="btn btn-outline ml-3"
+                onclick="addChapter({chapterTitle:document.getElementById('chapterTitle').value});"
+              >
+                add chapter
+              </button>
+            </div>
+            <a href="#" class="flex mt-3" onclick="chapterTitleButton()">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-plus-circle-fill mt-1 ml-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+                  />
+                </svg>
+              </div>
+              <div class="font-semibold ml-2 text-lg">Add a chapter to your course</div>
+            </a>
+
+            <!-- <input type="file" name="image" class="file-input file-input-bordered w-full max-w-xs" /> -->
+            <button class="btn btn-block justify-self-center mt-16 w-1/2 mb-5">Add course</button>
+            <!-- <button type="button" class="btn btn-outline">Add a chapter to your course</button> -->
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+
+  <script src="/script/typing_animation.js"></script>
+  <script src="/script/on_scroll_animation.js"></script>
+</html>
