@@ -12,6 +12,7 @@ declare global {
       GOOGLE_CLIENT_SECRET: string
       APLUSCADEMY_USERNAME: string
       APLUSCADEMY_PASSWORD: string
+      CALLBACK_DOMAIN: string
     }
   }
 }
