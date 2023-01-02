@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+      <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16">
+        <div class="flex ml-10 mr-10 w-full pl-5 pt-3">
+          <form class="form-control w-full" action="/lecturer/add" method="post">
+            <span class="text-3xl font-semibold">Add a lecturer</span>
+            <label class="label mt-5">
+              <span class="label-text">Lecturer Name</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Name"
+              name="lecturerName"
+              class="input input-bordered w-full max-w-xs"
+              autofocus
+            />
+            <label class="label mt-5">
+              <span class="label-text">Lecturer Email</span>
+            </label>
+            <input type="text" placeholder="Email" name="lecturerEmail" class="input input-bordered w-full max-w-xs" />
+            <label class="label mt-5">
+              <span class="label-text">Lecturer Password</span>
+            </label>
+            <input
+              type="password"
+              placeholder="Password"
+              name="lecturerPassword"
+              class="input input-bordered w-full max-w-xs"
+            />
+
+            <label class="label mt-0">
+              <span class="label-text">Category Image</span>
+            </label>
+            <input type="file" accept="image/*" class="file-input file-input-bordered w-full max-w-xs" />
+            <button class="btn btn-block mt-10 max-w-xs">Add lecturer</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
