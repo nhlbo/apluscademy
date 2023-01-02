@@ -4,7 +4,7 @@ import {
   postAddCategory,
   getCategoryList,
   getCourseList,
-  getViewCourse,
+  getCourse,
   postDeleteCategory,
   postEditCategoryName
 } from '../controllers/category'
@@ -14,10 +14,11 @@ const router = express.Router()
 router.route('/add').get(getAddCategory)
 router.route('/add').post(postAddCategory)
 
-router.route('/view').get(getCategoryList)
-router.route('/view/:cate_id').get(getCourseList)
-router.route('/view/course/:course_id').get(getViewCourse)
-router.route('/delete/:course_id').get(postDeleteCategory)
-router.route('/edit/:cate_id').post(postEditCategoryName)
+router.route('/').get(getCategoryList)
+router.route('/:id').get(getCourseList)
+router.route('/course/:id').get(getCourse)
 
-export { router as CategoryRoute }
+router.route('/delete/:id').post(postDeleteCategory)
+router.route('/edit/:id').post(postEditCategoryName)
+
+export { router as categoryRoute }
