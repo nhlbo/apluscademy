@@ -8,6 +8,35 @@
 
     <main class="w-screen">
       <div class="w-full">
+        <div class="flex">
+          <div class="ml-16 mt-5 text-3xl font-semibold"><%= category.name %></div>
+          <!-- <a class="w-screen flex justify-end mt-5 mr-16" href="/category/edit"
+            ><button class="btn">Edit category name</button></a
+          > -->
+          <div class="w-screen flex justify-end mt-4 mr-16">
+            <label for="my-modal-3" class="btn mt-1">edit category name</label>
+            <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+            <div class="modal">
+              <div class="modal-box relative">
+                <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <form class="form-control w-full grid" action="/category/edit/<%= category._id %>" method="post">
+                  <span class="text-3xl font-semibold">Edit category name</span>
+                  <label class="label mt-5">
+                    <span class="label-text text-xl">New category name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="New category name"
+                    name="newCategoryName"
+                    class="input input-bordered w-full"
+                    autofocus
+                  />
+                  <button class="btn btn-block justify-self-center mt-10">Save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">
           <% category.courses.forEach(function(course) { %>
           <a href="/category/view/course/course?_id=<%=course._id%>">

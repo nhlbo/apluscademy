@@ -8,8 +8,8 @@ const getAddCategory = asyncHandler(async (req, res) => {
 
 const postAddCategory = asyncHandler(async (req, res, _next) => {
   await Category.create({
-    name: req.body.categoryName,
-    courses: '63af1cce6f8457a1df2e60ad'
+    name: req.body.categoryName
+    // courses: '63af1cce6f8457a1df2e60ad'
   })
     .then(() => {
       res.redirect('/category/view')
@@ -28,12 +28,13 @@ const getCategoryList = asyncHandler(async (req, res, _next) => {
 
 const getCourseList = asyncHandler(async (req, res, _next) => {
   const category = await Category.findOne(req.query).exec()
+  res.render('pages/course_list', { isAuthenticated: req.isAuthenticated(), category: category })
+
   // for (const course of category?.courses!) {
   //   const foundCourse = await Course.findOne(course).exec()
   //   console.log(foundCourse)
   // }
   // res.render('pages/course_list', { isAuthenticated: req.isAuthenticated() })
-  res.render('pages/course_list', { isAuthenticated: req.isAuthenticated(), category: category })
 })
 
 const getViewCourse = asyncHandler(async (req, res) => {
@@ -43,4 +44,23 @@ const getViewCourse = asyncHandler(async (req, res) => {
   })
 })
 
-export { getAddCategory, postAddCategory, getViewCourse, getCategoryList, getCourseList }
+const postDeleteCategory = asyncHandler(async (req, res) => {
+  await Category.deleteOne(req.query)
+  res.redirect('/category/view')
+})
+
+const postEditCategoryName = asyncHandler(async (req, res) => {
+  const query = { _id: req.params.cate_id }
+  await Category.findOneAndUpdate(query, { name: req.body.newCategoryName })
+  res.redirect('/category/view')
+})
+
+export {
+  getAddCategory,
+  postAddCategory,
+  getCategoryList,
+  getCourseList,
+  postDeleteCategory,
+  getViewCourse,
+  postEditCategoryName
+}
