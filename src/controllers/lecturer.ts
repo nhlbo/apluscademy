@@ -29,9 +29,9 @@ const postAddLecturer = asyncHandler(async (req, res, next) => {
   res.redirect('/lecturer/add')
 })
 
-const deleteLecturer = asyncHandler(async (req, res) => {
+const postDeleteLecturer = asyncHandler(async (req, res) => {
   await User.deleteOne({ _id: req.params.id })
   res.redirect('/lecturer')
 })
 
-export { getLecturerList, getAddLecturer, postAddLecturer, deleteLecturer }
+export { getLecturerList, getAddLecturer, postAddLecturer, postDeleteLecturer }
