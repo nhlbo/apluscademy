@@ -12,15 +12,13 @@ const GoogleStrategy = passportGoogle.Strategy
 const CALLBACK_DOMAIN = process.env.CALLBACK_DOMAIN || ''
 
 passport.use(
-  new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, cb) => {
+  new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, async (_req, email, password, cb) => {
     const user = await User.findOne({ email }).select('+password')
     if (!user) {
-      req.flash('errors', 'Incorrect username or password.')
       return cb(null, false, { message: 'Incorrect username or password.' })
     }
     const isPassword = await bcrypt.compare(password, user.password)
     if (!isPassword) {
-      req.flash('errors', 'Incorrect username or password.')
       return cb(null, false, { message: 'Incorrect username or password.' })
     }
     return cb(null, user)

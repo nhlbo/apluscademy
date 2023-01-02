@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
+import { generateAvatar } from '../utils/generator'
 
 export interface AuthToken {
   accessToken: string
@@ -67,7 +68,10 @@ const userSchema = new mongoose.Schema<IUser>({
     gender: String,
     location: String,
     website: String,
-    picture: String
+    picture: {
+      type: String,
+      default: generateAvatar()
+    }
   },
   ownedCourses: [
     {

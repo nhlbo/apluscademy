@@ -13,16 +13,10 @@ router.route('/login').get(authController.isNotAuthenticated, authController.get
 router.route('/login/password').post(authController.postLoginPassword)
 router.route('/logout').post(authController.postLogout)
 router.route('/oauth2/redirect/facebook').get(passport.authenticate('facebook'))
-router
-  .route('/login/facebook/callback')
-  .get(passport.authenticate('facebook', { failureRedirect: '/login' }), (_, res) => {
-    res.redirect('/')
-  })
+router.route('/login/facebook/callback').get(authController.postLoginFacebook)
 router.route('/oauth2/redirect/google').get(passport.authenticate('google', { scope: ['profile'] }))
 router
   .route('/login/google/callback')
-  .get(passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }), (_, res) => {
-    res.redirect('/')
-  })
+  .get(authController.postLoginGoogle)
 
 export { router as authRoute }
