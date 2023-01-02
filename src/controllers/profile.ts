@@ -8,7 +8,8 @@ const getProfile = asyncHandler(async (req, res) => {
     userName: user!.profile.name,
     dateCreated: user!.createdAt,
     userRole: user!.role,
-    isAuthenticated: req.isAuthenticated()
+    isAuthenticated: req.isAuthenticated(),
+    avatar: req.cookies.avatar
   })
 })
 

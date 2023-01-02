@@ -1,218 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../partials/head'); %>
-  </head>
-  <body>
-    <header><%- include('../partials/header.ejs'); %></header>
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body>
+<header><%- include('../partials/header.ejs'); %></header>
 
-    <main>
-      <div class="">
-        <div class="flex">
-          <!-- FIRST HALF-->
-          <div class="pl-5 w-1/5 pr-5">
-            <div class="drawer-side">
-              <label for="my-drawer-2" class="drawer-overlay"></label>
-              <ul class="menu p-4 w-80 bg-base-100 text-base-content text-lg">
-                <!-- Sidebar content here -->
-                <li><a class="w-3/4" href="/profile">Profile</a></li>
-                <li><a class="w-3/4">Favorite</a></li>
-                <li><a class="w-3/4">Owned Courses</a></li>
-              </ul>
+<main>
+  <div class="">
+    <div class="flex">
+      <!-- FIRST HALF-->
+      <div class="pl-5 w-1/5 pr-5">
+        <div class="drawer-side">
+          <label class="drawer-overlay"></label>
+          <ul class="menu p-4 w-80 bg-base-100 text-base-content text-lg">
+            <!-- Sidebar content here -->
+            <li><a class="w-3/4" href="/profile">Profile</a></li>
+            <li><a class="w-3/4">Favorite</a></li>
+            <li><a class="w-3/4">Owned Courses</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SECOND HALF-->
+      <div class="bg-[#eeeeee] w-4/5 pr-10">
+        <div class="p-10 text-lg ml-10">
+          <div class="flex bg-[]">
+            <form>
+              <div class="avatar">
+                <label for="fileToUpload">
+                  <div
+                    class="w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center
+                  cursor-pointer text-transparent bg-[url('<%= avatar %>')] hover:text-white"
+                  >
+                    <div class="flex h-min opacity-100">
+                      <i class="fa-solid fa-camera items-center flex"></i>
+                      <span class="ml-2">Change Image</span>
+                    </div>
+                  </div>
+                </label>
+                <input type="File" name="fileToUpload" id="fileToUpload" class="hidden cursor-pointer">
+              </div>
+            </form>
+            <div class="text-4xl pl-64 pt-16">
+              <span class="opacity-80">Happy learning,</span>&nbsp;
+              <span class="font-semibold"> <%= userName %>! </span>
             </div>
           </div>
+          <div class="divider opacity-50"></div>
 
-          <!-- SECOND HALF-->
-          <div class="bg-[#eeeeee] w-4/5 pr-10">
-            <div class="p-10 text-lg ml-10">
-              <div class="flex bg-[]">
-                <div class="w-44 h-44 rounded-full bg-black ml-10 mb-10">
-                  <!-- <img src="https://placeimg.com/80/80/people" /> -->
-                </div>
-                <div class="text-4xl pl-64 pt-16">
-                  <span class="opacity-80">Happy learning,</span>&nbsp;
-                  <span class="font-semibold"> <%= userName %>! </span>
-                </div>
+          <div class="text-2xl font-semibold ml-10 mb-2">Account info</div>
+
+          <!-- gray bounding box-->
+          <div class="bg-[#ffffff] pl-24 pr-24 pt-10 pb-10 ml-10 mr-10 rounded-box">
+            <div class="flex justify-between">
+              <div class="mb-3">
+                <div class="uppercase opacity-75">username &nbsp;</div>
+                <div class="font-semibold"><%= userName %></div>
               </div>
-              <div class="divider opacity-50"></div>
-
-              <div class="text-2xl font-semibold ml-10 mb-2">Account info</div>
-
-              <!-- gray bounding box-->
-              <div class="bg-[#ffffff] pl-24 pr-24 pt-10 pb-10 ml-10 mr-10 rounded-box">
-                <div class="flex justify-between">
-                  <div class="mb-3">
-                    <div class="uppercase opacity-75">username &nbsp;</div>
-                    <div class="font-semibold"><%= userName %></div>
-                  </div>
-                  <div>
-                    <label for="my-modal-3" class="btn mt-1">edit</label>
-                    <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-                    <div class="modal">
-                      <div class="modal-box relative">
-                        <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                        <form class="form-control w-full grid" action="/profile/edit/name" method="post">
-                          <span class="text-3xl font-semibold">Edit name</span>
-                          <label class="label mt-5">
-                            <span class="label-text text-xl">New name</span>
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="New name"
-                            name="newName"
-                            class="input input-bordered w-full"
-                            autofocus
-                          />
-                          <button class="btn btn-block justify-self-center mt-10">Save</button>
-                        </form>
-                      </div>
-                    </div>
+              <div>
+                <label for="my-modal-3" class="btn mt-1">edit</label>
+                <input type="checkbox" id="my-modal-3" class="modal-toggle"/>
+                <div class="modal">
+                  <div class="modal-box relative">
+                    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <form class="form-control w-full grid" action="/profile/edit/name" method="post">
+                      <span class="text-3xl font-semibold">Edit name</span>
+                      <label class="label mt-5">
+                        <span class="label-text text-xl">New name</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="New name"
+                        name="newName"
+                        class="input input-bordered w-full"
+                        autofocus
+                      />
+                      <button class="btn btn-block justify-self-center mt-10">Save</button>
+                    </form>
                   </div>
                 </div>
-
-                <div class="flex justify-between">
-                  <div class="mb-3">
-                    <div class="uppercase opacity-75">email &nbsp;</div>
-                    <div class="font-semibold"><%= userEmail %></div>
-                  </div>
-                  <div>
-                    <label for="my-modal-4" class="btn mt-1">edit</label>
-                    <input type="checkbox" id="my-modal-4" class="modal-toggle" />
-                    <div class="modal">
-                      <div class="modal-box relative">
-                        <label for="my-modal-4" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                        <form class="form-control w-full grid" action="/profile/edit/password" method="post">
-                          <span class="text-3xl font-semibold">Edit password</span>
-                          <label class="label mt-5">
-                            <span class="label-text text-xl">New password</span>
-                          </label>
-                          <input
-                            type="password"
-                            placeholder="New password"
-                            name="newPassword"
-                            class="input input-bordered w-full"
-                            autofocus
-                          />
-                          <label class="label">
-                            <span class="label-text text-xl">Confirm password</span>
-                          </label>
-                          <input
-                            type="password"
-                            placeholder="Confirm password"
-                            name="confirm-new-password"
-                            class="input input-bordered w-full"
-                          />
-                          <button class="btn btn-block justify-self-center mt-10">Save</button>
-                          <% if (messages.errors) { %>
-                          <div class="alert alert-error shadow-lg mt-5">
-                            <div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="stroke-current flex-shrink-0 h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                              </svg>
-                              <span><%= messages.errors %></span>
-                            </div>
-                          </div>
-                          <% } %>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <span class="font-semibold capitalize"><%=userRole%></span> since
-                  <span class="font-semibold"><%=dateCreated%></span>
-                </div>
-                <div>Total owned courses: ##</div>
-              </div>
-
-              <div class="text-2xl font-semibold ml-10 mb-2 mt-10" id="password-form-location">Account security</div>
-              <!-- gray bounding box-->
-              <div class="bg-[#ffffff] pl-24 pr-24 pt-10 pb-10 ml-10 mr-10 rounded-box mb-16">
-                <form class="form-control w-full grid" action="/profile/edit/password" method="post">
-                  <span class="text-xl font-semibold mb-4">Password</span>
-                  <input
-                    type="password"
-                    placeholder="Current password"
-                    name="currentPassword"
-                    class="input input-bordered w-full"
-                    id="current-password-field"
-                    onkeyup="isEmptyField()"
-                  />
-                  <input
-                    type="password"
-                    placeholder="New password"
-                    name="newPassword"
-                    class="input input-bordered w-full mt-3"
-                    id="new-password-field"
-                    onkeyup="isEmptyField()"
-                  />
-                  <input
-                    type="password"
-                    placeholder="Confirm new password"
-                    name="confirm-new-password"
-                    class="input input-bordered w-full mt-3"
-                    id="confirm-new-password-field"
-                    onkeyup="isEmptyField()"
-                  />
-                  <button class="btn btn-block mt-5 w-1/5" id="save-password-button" disabled>Save</button>
-                  <% if (messages.errors) { %>
-                  <div class="alert alert-error shadow-lg mt-5">
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="stroke-current flex-shrink-0 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <span><%= messages.errors %></span>
-                    </div>
-                  </div>
-                  <% } %> <% if (messages.successStatus) { %>
-                  <div class="alert alert-success shadow-lg mt-5">
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="stroke-current flex-shrink-0 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <span><%= messages.successStatus %></span>
-                    </div>
-                  </div>
-                  <% } %>
-                </form>
               </div>
             </div>
+
+            <div class="flex justify-between">
+              <div class="mb-3">
+                <div class="uppercase opacity-75">email &nbsp;</div>
+                <div class="font-semibold"><%= userEmail %></div>
+              </div>
+              <div>
+                <label for="my-modal-4" class="btn mt-1">edit</label>
+                <input type="checkbox" id="my-modal-4" class="modal-toggle"/>
+                <div class="modal">
+                  <div class="modal-box relative">
+                    <label for="my-modal-4" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <form class="form-control w-full grid" action="/profile/edit/password" method="post">
+                      <span class="text-3xl font-semibold">Edit password</span>
+                      <label class="label mt-5">
+                        <span class="label-text text-xl">New password</span>
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="New password"
+                        name="newPassword"
+                        class="input input-bordered w-full"
+                        autofocus
+                      />
+                      <label class="label">
+                        <span class="label-text text-xl">Confirm password</span>
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="Confirm password"
+                        name="confirm-new-password"
+                        class="input input-bordered w-full"
+                      />
+                      <button class="btn btn-block justify-self-center mt-10">Save</button>
+                      <% if (messages.errors) { %>
+                      <div class="alert alert-error shadow-lg mt-5">
+                        <div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="stroke-current flex-shrink-0 h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <span><%= messages.errors %></span>
+                        </div>
+                      </div>
+                      <% } %>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span class="font-semibold capitalize"><%=userRole%></span> since
+              <span class="font-semibold"><%=dateCreated%></span>
+            </div>
+            <div>Total owned courses: ##</div>
+          </div>
+
+          <div class="text-2xl font-semibold ml-10 mb-2 mt-10" id="password-form-location">Account security</div>
+          <!-- gray bounding box-->
+          <div class="bg-[#ffffff] pl-24 pr-24 pt-10 pb-10 ml-10 mr-10 rounded-box mb-16">
+            <form class="form-control w-full grid" action="/profile/edit/password" method="post">
+              <span class="text-xl font-semibold mb-4">Password</span>
+              <input
+                type="password"
+                placeholder="Current password"
+                name="currentPassword"
+                class="input input-bordered w-full"
+                id="current-password-field"
+                onkeyup="isEmptyField()"
+              />
+              <input
+                type="password"
+                placeholder="New password"
+                name="newPassword"
+                class="input input-bordered w-full mt-3"
+                id="new-password-field"
+                onkeyup="isEmptyField()"
+              />
+              <input
+                type="password"
+                placeholder="Confirm new password"
+                name="confirm-new-password"
+                class="input input-bordered w-full mt-3"
+                id="confirm-new-password-field"
+                onkeyup="isEmptyField()"
+              />
+              <button class="btn btn-block mt-5 w-1/5" id="save-password-button" disabled>Save</button>
+              <% if (messages.errors) { %>
+              <div class="alert alert-error shadow-lg mt-5">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="stroke-current flex-shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span><%= messages.errors %></span>
+                </div>
+              </div>
+              <% } %> <% if (messages.successStatus) { %>
+              <div class="alert alert-success shadow-lg mt-5">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="stroke-current flex-shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span><%= messages.successStatus %></span>
+                </div>
+              </div>
+              <% } %>
+            </form>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
 
-    <footer><%- include('../partials/footer'); %></footer>
-  </body>
-  <script defer src="/script/disable_button_empty_field.js"></script>
+<footer><%- include('../partials/footer'); %></footer>
+</body>
+<script defer src="/script/disable_button_empty_field.js"></script>
 </html>

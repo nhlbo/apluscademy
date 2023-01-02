@@ -123,9 +123,51 @@ const getLogin = asyncHandler(async (_, res) => {
   res.render('pages/login')
 })
 
-const postLoginPassword = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login'
+const postLoginPassword = asyncHandler(async (req, res, next) => {
+  passport.authenticate('local', (err, user) => {
+    if (err) {
+      req.flash('errors', err)
+      res.redirect('/login')
+      return next(err)
+    }
+    if (!user) {
+      req.flash('errors', 'User not found.')
+      res.redirect('/login')
+    } else {
+      req.logIn(user, function () {
+        res.cookie('avatar', user.profile.picture, { httpOnly: true })
+        res.redirect('/')
+      })
+    }
+  })(req, res, next)
+})
+
+const postLoginFacebook = asyncHandler(async (req, res, next) => {
+  passport.authenticate('facebook', { failureRedirect: '/login' }, (err, user) => {
+    if (err) {
+      req.flash('errors', err)
+      res.redirect('/login')
+      return next(err)
+    }
+    req.logIn(user, function () {
+      res.cookie('avatar', user.profile.picture, { httpOnly: true })
+      res.redirect('/')
+    })
+  })(req, res, next)
+})
+
+const postLoginGoogle = asyncHandler(async (req, res, next) => {
+  passport.authenticate('google', { failureRedirect: '/login' }, (err, user) => {
+    if (err) {
+      req.flash('errors', err)
+      res.redirect('/login')
+      return next(err)
+    }
+    req.logIn(user, function () {
+      res.cookie('avatar', user.profile.picture, { httpOnly: true })
+      res.redirect('/')
+    })
+  })(req, res, next)
 })
 
 const postLogout = asyncHandler(async (req, res, next) => {
@@ -152,6 +194,8 @@ export {
   postVerifyEmail,
   getLogin,
   postLoginPassword,
+  postLoginFacebook,
+  postLoginGoogle,
   postLogout,
   isAuthenticated,
   isNotAuthenticated
