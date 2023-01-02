@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main class="w-screen">
+      <div class="flex">
+        <a class="w-screen flex justify-end mt-5 mr-16" href="/lecturer/add"
+          ><button class="btn">Add lecturer</button></a
+        >
+      </div>
+      <div class="w-full">
+        <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">
+          <% lecturers.forEach(function(lecturer) { %>
+          <div class="mt-3 relative">
+            <% if (lecturer) { %>
+            <form action="/lecturer/delete/<%=lecturer._id%>" method="post">
+              <button class="btn btn-sm btn-circle -right-3 -top-3 absolute">✕</button>
+            </form>
+            <% } %>
+            <a href="#">
+              <div class="w-full aspect-square border">
+                <img src="https://s.udemycdn.com/home/top-categories/lohp-category-design-2x-v2.jpg" />
+              </div>
+              <div class="flex justify-between">
+                <div class="font-semibold text-xl"><%= lecturer.profile.name %></div>
+              </div>
+            </a>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
