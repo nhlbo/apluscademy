@@ -26,9 +26,9 @@
       <div class="bg-[#eeeeee] w-4/5 pr-10">
         <div class="p-10 text-lg ml-10">
           <div class="flex bg-[]">
-            <form>
+            <form action="/profile/edit/avatar" method="post" enctype="multipart/form-data">
               <div class="avatar">
-                <label for="fileToUpload">
+                <label for="avatarUpload">
                   <div
                     class="w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center
                   cursor-pointer text-transparent bg-[url('<%= avatar %>')] hover:text-white"
@@ -39,7 +39,8 @@
                     </div>
                   </div>
                 </label>
-                <input type="File" name="fileToUpload" id="fileToUpload" class="hidden cursor-pointer">
+                <input type="file" name="upload" id="avatarUpload" class="hidden cursor-pointer"
+                       onchange="form.submit()" accept="image/*">
               </div>
             </form>
             <div class="text-4xl pl-64 pt-16">
