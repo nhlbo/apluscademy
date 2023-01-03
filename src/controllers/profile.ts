@@ -24,9 +24,8 @@ const updateAvatar = asyncHandler(async (req, res, next) => {
     if (error) {
       return next()
     }
-    const user = req.user!
     const avatarURL = `https://${AWS_BUCKET}.${AWS_DOMAIN_NAME}/${fileName}`
-    await User.findOneAndUpdate({ _id: user.id }, { profile: { picture: avatarURL } })
+    await User.findOneAndUpdate(req.user!.id, { 'profile.picture': avatarURL })
     res.cookie('avatar', avatarURL, { httpOnly: true })
     res.redirect('/profile')
   })
