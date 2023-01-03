@@ -1,10 +1,10 @@
+import cookieParser from 'cookie-parser'
 import express from 'express'
+import flash from 'express-flash'
 import session from 'express-session'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import flash from 'express-flash'
-import cookieParser from 'cookie-parser'
-import { authRoute, homeRoute, courseRoute, profileRoute } from './src/routes'
+import { authRoute, courseRoute, homeRoute, profileRoute } from './src/routes'
 
 const app = express()
 const PORT = process.env.PORT || 3000

@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from 'uuid'
 import { asyncHandler } from '../middlewares/async'
 import { User } from '../models/user'
+import { upload } from '../utils/amazonS3'
 
 const getProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user!.id).exec()
@@ -13,13 +15,30 @@ const getProfile = asyncHandler(async (req, res) => {
   })
 })
 
+const AWS_DOMAIN_NAME = process.env.AWS_DOMAIN_NAME!
+const AWS_BUCKET = process.env.AWS_BUCKET!
+
+const updateAvatar = asyncHandler(async (req, res, next) => {
+  const fileName = uuidv4()
+  upload(fileName)(req, res, async function (error) {
+    if (error) {
+      return next()
+    }
+    const user = req.user!
+    const avatarURL = `https://${AWS_BUCKET}.${AWS_DOMAIN_NAME}/${fileName}`
+    await User.findOneAndUpdate({ _id: user.id }, { profile: { picture: avatarURL } })
+    res.cookie('avatar', avatarURL, { httpOnly: true })
+    res.redirect('/profile')
+  })
+})
+
 const getChangeName = asyncHandler(async (req, res) => {
   res.render('pages/edit_name', { isAuthenticated: req.isAuthenticated() })
 })
 
 const postChangeName = asyncHandler(async (req, res) => {
   await User.findOneAndUpdate(req.user!.id, { 'profile.name': req.body.newName })
-  res.redirect('/profile')
+  res.redirect(302, '/test')
 })
 
 const getChangePassword = asyncHandler(async (req, res) => {
@@ -50,4 +69,4 @@ const postChangePassword = asyncHandler(async (req, res, next) => {
   res.redirect('/profile#password-form-location')
 })
 
-export { getProfile, getChangeName, postChangeName, getChangePassword, postChangePassword }
+export { getProfile, updateAvatar, getChangeName, postChangeName, getChangePassword, postChangePassword }

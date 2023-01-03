@@ -4,6 +4,7 @@ import * as profileController from '../controllers/profile'
 const router = express.Router()
 
 router.route('/').get(profileController.getProfile)
+router.route('/edit/avatar').post(profileController.updateAvatar)
 router.route('/edit/name').get(profileController.getChangeName)
 router.route('/edit/name').post(profileController.postChangeName)
 
