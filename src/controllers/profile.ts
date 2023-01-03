@@ -1,7 +1,5 @@
-import { v4 as uuidv4 } from 'uuid'
 import { asyncHandler } from '../middlewares/async'
 import { User } from '../models/user'
-import { upload } from '../utils/amazonS3'
 
 const getProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user!.id).exec()
@@ -15,20 +13,12 @@ const getProfile = asyncHandler(async (req, res) => {
   })
 })
 
-const AWS_DOMAIN_NAME = process.env.AWS_DOMAIN_NAME!
-const AWS_BUCKET = process.env.AWS_BUCKET!
-
-const updateAvatar = asyncHandler(async (req, res, next) => {
-  const fileName = uuidv4()
-  upload(fileName)(req, res, async function (error) {
-    if (error) {
-      return next()
-    }
-    const avatarURL = `https://${AWS_BUCKET}.${AWS_DOMAIN_NAME}/${fileName}`
-    await User.findOneAndUpdate(req.user!.id, { 'profile.picture': avatarURL })
-    res.cookie('avatar', avatarURL, { httpOnly: true })
-    res.redirect('/profile')
-  })
+const updateAvatar = asyncHandler(async (req, res, _next) => {
+  const file: any = req.file
+  const avatarURL = file?.location
+  await User.findOneAndUpdate(req.user!.id, { 'profile.picture': avatarURL })
+  res.cookie('avatar', avatarURL, { httpOnly: true })
+  res.redirect('/profile')
 })
 
 const getChangeName = asyncHandler(async (req, res) => {
