@@ -3,9 +3,15 @@ let chapters = []
 const renderChapters = () => {
   let chapterStr = ''
   for (let i = 0; i < chapters.length; i++) {
-    chapterStr += `<li class="mt-0 ml-5 pl-3">${chapters[i].chapterTitle}</li>`
+    chapterStr += `<div class="card w-full bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Chapter ${i + 1}</h2>
+          <p>${chapters[i].chapterTitle}</p>
+        </div>
+      </div>`
   }
-  document.getElementById('chapters').innerHTML = chapterStr
+  console.log('chapterStr', chapterStr)
+  document.getElementById('show-content').innerHTML = chapterStr
 }
 
 const addChapter = (chapter) => {

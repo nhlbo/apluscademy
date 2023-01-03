@@ -1,10 +1,11 @@
 import express from 'express'
 import * as profileController from '../controllers/profile'
+import { upload } from '../utils/amazonS3'
 
 const router = express.Router()
 
 router.route('/').get(profileController.getProfile)
-router.route('/edit/avatar').post(profileController.updateAvatar)
+router.route('/edit/avatar').post(upload.single('file'), profileController.updateAvatar)
 
 router.route('/edit/name').get(profileController.getChangeName)
 router.route('/edit/name').post(profileController.postChangeName)
