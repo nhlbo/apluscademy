@@ -37,7 +37,7 @@ const getChangeName = asyncHandler(async (req, res) => {
 
 const postChangeName = asyncHandler(async (req, res) => {
   await User.findOneAndUpdate(req.user!.id, { 'profile.name': req.body.newName })
-  res.redirect(302, '/test')
+  res.redirect('/profile')
 })
 
 const getChangePassword = asyncHandler(async (req, res) => {
