@@ -4,8 +4,6 @@ import flash from 'express-flash'
 import session from 'express-session'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import flash from 'express-flash'
-import cookieParser from 'cookie-parser'
 import { authRoute, homeRoute, profileRoute, lecturerRoute, categoryRoute } from './src/routes'
 
 const app = express()

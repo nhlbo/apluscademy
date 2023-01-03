@@ -3,7 +3,7 @@ import { Category } from '../models/category'
 import { Course } from '../models/course'
 
 const getAddCategory = asyncHandler(async (req, res) => {
-  res.render('pages/add_category', { isAuthenticated: req.isAuthenticated() })
+  res.render('pages/add_category', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar })
 })
 
 const postAddCategory = asyncHandler(async (req, res) => {
@@ -22,19 +22,27 @@ const postAddCategory = asyncHandler(async (req, res) => {
 const getCategoryList = asyncHandler(async (req, res) => {
   await Category.find({}).exec(function (err, cates) {
     if (err) throw err
-    res.render('pages/category_list', { isAuthenticated: req.isAuthenticated(), categories: cates })
+    res.render('pages/category_list', {
+      isAuthenticated: req.isAuthenticated(),
+      avatar: req.cookies.avatar,
+      categories: cates
+    })
   })
 })
 
 const getCourseList = asyncHandler(async (req, res) => {
   const category = await Category.findOne({ _id: req.params.id }).exec()
-  res.render('pages/course_list', { isAuthenticated: req.isAuthenticated(), category: category })
+  res.render('pages/course_list', {
+    isAuthenticated: req.isAuthenticated(),
+    avatar: req.cookies.avatar,
+    category: category
+  })
 })
 
 const getCourse = asyncHandler(async (req, res) => {
   await Course.findOne(req.query).exec(function (err, course) {
     if (err) throw err
-    res.render('pages/course', { isAuthenticated: req.isAuthenticated(), course: course })
+    res.render('pages/course', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar, course: course })
   })
 })
 
