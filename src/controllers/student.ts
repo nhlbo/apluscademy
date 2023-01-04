@@ -17,4 +17,15 @@ const postDeleteStudent = asyncHandler(async (req, res) => {
   res.redirect('/student')
 })
 
-export { getStudentList, postDeleteStudent }
+const getStudent = asyncHandler(async (req, res) => {
+  await User.findOne({ _id: req.params.id }).exec(function (err, student) {
+    if (err) throw err
+    res.render('pages/student', {
+      isAuthenticated: req.isAuthenticated(),
+      avatar: req.cookies.avatar,
+      student: student
+    })
+  })
+})
+
+export { getStudentList, postDeleteStudent, getStudent }
