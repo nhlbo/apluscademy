@@ -12,4 +12,9 @@ const getStudentList = asyncHandler(async (req, res) => {
   })
 })
 
-export { getStudentList }
+const postDeleteStudent = asyncHandler(async (req, res) => {
+  await User.deleteOne({ _id: req.params.id })
+  res.redirect('/student')
+})
+
+export { getStudentList, postDeleteStudent }

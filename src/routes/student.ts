@@ -1,5 +1,5 @@
 import express from 'express'
-import { getStudentList } from '../controllers/student'
+import { getStudentList, postDeleteStudent } from '../controllers/student'
 
 const router = express.Router()
 
@@ -9,6 +9,6 @@ const router = express.Router()
 router.route('/').get(getStudentList)
 //router.route('/:id').get(getLecturer)
 
-//router.route('/delete/:id').post(postDeleteLecturer)
+router.route('/delete/:id').post(postDeleteStudent)
 
 export { router as studentRoute }
