@@ -8,11 +8,12 @@ import {
   postDeleteCategory,
   postEditCategoryName
 } from '../controllers/category'
+import { upload } from '../utils/amazonS3'
 
 const router = express.Router()
 
 router.route('/add').get(getAddCategory)
-router.route('/add').post(postAddCategory)
+router.route('/add').post(upload.single('upload'), postAddCategory)
 
 router.route('/').get(getCategoryList)
 router.route('/:id').get(getCourseList)

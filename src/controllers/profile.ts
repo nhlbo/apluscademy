@@ -1,11 +1,7 @@
 import { asyncHandler } from '../middlewares/async'
 import { User } from '../models/user'
-<<<<<<< HEAD
-=======
-import { upload } from '../utils/amazonS3'
 import { Category } from '../models/category'
 import { Course } from '../models/course'
->>>>>>> 6f7fc45 (feat: menu)
 
 const getProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user!.id).exec()
