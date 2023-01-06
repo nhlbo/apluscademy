@@ -1,34 +1,22 @@
 import { asyncHandler } from '../middlewares/async'
 import { Category } from '../models/category'
 import { Course } from '../models/course'
-import { v4 as uuidv4 } from 'uuid'
-import { upload } from '../utils/amazonS3'
 
-const AWS_DOMAIN_NAME = process.env.AWS_DOMAIN_NAME!
-const AWS_BUCKET = process.env.AWS_BUCKET!
-
-const postAddCategory = asyncHandler(async (req, res, next) => {
-  const fileName = uuidv4()
-  upload(fileName)(req, res, async function (error) {
-    if (error) {
-      console.log(error)
-      return next()
-    }
-    const categoryImageURL = `https://${AWS_BUCKET}.${AWS_DOMAIN_NAME}/${fileName}`
-    console.log(categoryImageURL)
-    await Category.create({
-      name: req.body.categoryName,
-      image: categoryImageURL
-      // courses: '63af1cce6f8457a1df2e60ad'
-    })
-      .then(() => {
-        res.cookie('categoryImg', categoryImageURL, { httpOnly: true })
-        res.redirect('/category')
-      })
-      .catch((_err) => {
-        res.redirect('/category/add')
-      })
+const postAddCategory = asyncHandler(async (req, res, _next) => {
+  const file: any = req.file
+  const categoryImgURL = file?.location
+  await Category.create({
+    name: req.body.categoryName,
+    image: categoryImgURL
+    // courses: '63af1cce6f8457a1df2e60ad'
   })
+    .then(() => {
+      res.cookie('categoryImg', categoryImgURL, { httpOnly: true })
+      res.redirect('/category')
+    })
+    .catch((_err) => {
+      res.redirect('/category/add')
+    })
 })
 
 const getAddCategory = asyncHandler(async (req, res) => {
