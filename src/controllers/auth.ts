@@ -74,6 +74,7 @@ const postRegister = asyncHandler((req, res, next) => {
       result.password = user.password
       await result.save()
       res.cookie('userEmail', user.email, { httpOnly: true })
+      res.cookie('avatar', result.profile.picture, { httpOnly: true })
       sendOTPVerificationEmail(result._id, user.email, next)
     })
     .then(() => res.redirect('/verify'))
