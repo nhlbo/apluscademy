@@ -18,6 +18,9 @@ const categorySchema = new mongoose.Schema({
     type: [mongoose.Types.ObjectId],
     ref: 'Course',
     index: true
+  },
+  image: {
+    type: String
   }
 })
 

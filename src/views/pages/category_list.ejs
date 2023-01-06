@@ -5,7 +5,6 @@
   </head>
   <body>
     <header><%- include('../partials/header'); %></header>
-
     <main class="w-screen">
       <div class="flex">
         <a class="w-screen flex justify-end mt-5 mr-16" href="/category/add"
@@ -14,17 +13,16 @@
       </div>
       <div class="w-full">
         <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">
-          <% categories.forEach(function(category) { %>
-
+          <% cates.forEach(function(category) { %>
           <div class="mt-3 relative">
             <% if (category.courses.length == 0) { %>
-            <form action="/category/delete/<%=category._id%>" method="post">
+            <form action="/category/delete/<%= category._id %>" method="post">
               <button class="btn btn-sm btn-circle -right-3 -top-3 absolute">✕</button>
             </form>
             <% } %>
-            <a href="/category/<%=category._id%>">
+            <a href="/category/<%= category._id %>">
               <div class="w-full aspect-square border">
-                <img src="https://s.udemycdn.com/home/top-categories/lohp-category-design-2x-v2.jpg" />
+                <img src="<%=category.image%>" />
               </div>
               <div class="flex justify-between">
                 <div class="font-semibold text-xl"><%= category.name %></div>
@@ -36,7 +34,6 @@
         </div>
       </div>
     </main>
-
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>
