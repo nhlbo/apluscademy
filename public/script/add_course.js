@@ -19,7 +19,31 @@ const addChapter = (chapter) => {
   renderChapters()
 }
 
-const chapterTitleButton = () => {
-  document.getElementById('add-chapter-form').style.display = 'block'
-  document.getElementById('chapterTitle').value = ''
+let divTagStr = ''
+let chapterIndex = 1
+const pushDivTag = () => {
+  divTagStr += `<div class="card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mt-2">
+ <div class="card-body">
+   <h2 class="card-title">Chapter <span>${chapterIndex}</span></h2>
+ </div>
+ <input
+   type="text"
+   placeholder="Chapter title"
+   name="chapterTitle"
+   class="input input-bordered w-full"
+   id="chapterTitle"
+   autofocus
+ />
+ <input
+   type="file"
+   placeholder="Video"
+   name="videoFile"
+   class="file-input file-input-bordered w-full mt-5"
+   accept="video/mp4,video/x-m4v,video/*"
+   id="videoFile"
+   autofocus
+ />
+</div>`
+  chapterIndex++
+  document.getElementById('show-content').innerHTML = divTagStr
 }
