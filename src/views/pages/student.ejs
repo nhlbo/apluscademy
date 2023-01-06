@@ -6,10 +6,27 @@
   <body>
     <header><%- include('../partials/header'); %></header>
 
-    <main>
-      <div>
-        <div><%= student.profile.name %></div>
-        <div><%= student.email %></div>
+    <main class="">
+      <div class="h-32 bg-[#111113]"></div>
+      <div class="flex -mt-32 ml-24 mr-24 rounded-box pb-5 mb-16 justify-center">
+        <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3 justify-center">
+          <div class="justify-center">
+            <div
+              class="m-5 w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center bg-white bg-[url('<%= student.profile.picture %>')] border"
+            ></div>
+            <div class="mt-7 border p-5 rounded-xl">
+              <div class="text-lg mb-3 font-semibold">A⁺cademy <span class="capitalize"><%= student.role %></span></div>
+              <div class="opacity-50 text-sm uppercase">Name</div>
+              <div class="font-semibold"><%= student.profile.name %></div>
+              <% if (student.email) { %>
+              <div class="opacity-50 text-sm uppercase">Email</div>
+              <div class="font-semibold"><%= student.email %></div>
+              <% } else { %>
+              <div class="opacity-50 text-sm">Signup via Google/Facebook</div>
+              <% } %>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 

@@ -6,10 +6,27 @@
   <body>
     <header><%- include('../partials/header'); %></header>
 
-    <main>
-      <div>
-        <div><%= lecturer.profile.name %></div>
-        <div><%= lecturer.email %></div>
+    <main class="">
+      <div class="h-32 bg-[#111113]"></div>
+      <div class="flex -mt-32 ml-24 mr-24 rounded-box pb-5 mb-16 justify-center">
+        <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3 justify-center">
+          <div class="justify-center">
+            <div
+              class="m-5 w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center bg-white bg-[url('<%= lecturer.profile.picture %>')] border"
+            ></div>
+            <div class="mt-7 border p-5 rounded-xl">
+              <div class="text-lg mb-3 font-semibold">
+                A⁺cademy <span class="capitalize"><%= lecturer.role %></span>
+              </div>
+              <div class="opacity-50 text-sm uppercase">Name</div>
+              <div class="font-semibold"><%= lecturer.profile.name %></div>
+              <div class="opacity-50 text-sm uppercase">Email</div>
+              <div class="font-semibold"><%= lecturer.email %></div>
+              <div class="opacity-50 text-sm uppercase">Courses count</div>
+              <div class="font-semibold"><%= lecturer.authoredCourses.length %></div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
