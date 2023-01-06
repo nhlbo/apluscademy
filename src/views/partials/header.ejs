@@ -1,20 +1,38 @@
 <div class="navbar bg-base-100 flex justify-between">
   <div class="w-full mr-2">
     <a class="btn btn-ghost normal-case text-3xl" href="/">A⁺cademy</a>
-    <ul class="menu menu-horizontal px-1 z-10">
-      <li tabindex="0">
-        <a href="/category">
-          Category
-          <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-          </svg>
-        </a>
-        <ul class="p-2 bg-[#ffffff]">
-          <li>abc</li>
-        </ul>
-      </li>
-    </ul>
-    <div class="form-control w-full">
+    <div class="dropdown dropdown-hover group">
+      <label tabindex="0" class="ml-3 mr-9 text-lg p-7 group-hover:text-purple-700"
+        ><a href="/category">Category</a></label
+      >
+      <ul tabindex="0" class="dropdown-content menu pr-1 pl-1 ml-5 shadow-xl rounded-xl w-52 bg-white border mt-5">
+        <% categories.forEach(function(category) { %>
+        <li class="dropdown dropdown-hover mt-1">
+          <a class="bg-white hover:bg-gray-400 block whitespace-no-wrap rounded-lg" href="/category/<%= category._id %>"
+            ><%= category.name %>
+          </a>
+          <ul
+            tabindex="0"
+            class="dropdown-content menu shadow-xl rounded-xl pl-1 pr-1 text-gray-700 bg-white ml-1 border w-52 -mt-1"
+          >
+            <% category.courses.forEach((course) => { %> <% if (category.courses.length > 0) { %>
+            <li class="dropdown dropdown-hover bg-white mt-1">
+              <a
+                class="delay-150 bg-white group hover:bg-gray-400 block rounded-lg"
+                href="/category/course/<%= course._id %>"
+              >
+                <%= course.title %>
+              </a>
+            </li>
+            <hr class="mt-1 opacity-40" />
+            <% } %> <% }) %>
+          </ul>
+        </li>
+        <hr class="mt-1 opacity-40" />
+        <% }) %>
+      </ul>
+    </div>
+    <div class="form-control w-full mr-16">
       <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
@@ -35,7 +53,7 @@
         </div>
         <input
           type="search"
-          class="w-full p-4 pl-10 input input-bordered w-full rounded-box"
+          class="w-full p-4 pl-10 input input-bordered w-full rounded-lg"
           placeholder="Search for anything"
           required
         />
