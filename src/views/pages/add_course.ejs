@@ -5,6 +5,20 @@
   <link rel="stylesheet" href="/css/style.css"/>
   <script src="/script/add_course.js"></script>
   <%- include('../partials/head'); %>
+  <script src="https://cdn.tiny.cloud/1/2vyvzdwdb7w3p5f46wgu7ucrhdgskpwh4b8lbde27tv094sg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+      tinymce.init({
+          selector: '.mytextarea',
+          plugins: [
+              'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+              'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+              'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+          ],
+          toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+              'alignleft aligncenter alignright alignjustify | ' +
+              'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+      });
+  </script>
 </head>
 <body>
   <header>
@@ -25,21 +39,11 @@
         <label class="label mt-0">
           <span class="label-text text-lg">Short Description</span>
         </label>
-        <input
-          type="text"
-          placeholder="Short course description"
-          name="shortDesc"
-          class="input input-bordered"
-        />
+        <textarea id="shortDesc" name="shortDesc" class="mytextarea">Enter short description here</textarea>
         <label class="label">
           <span class="label-text text-lg">Long Description</span>
         </label>
-        <input
-          type="text"
-          placeholder="Full course description"
-          name="longDesc"
-          class="input input-bordered"
-        />
+        <textarea id="longDesc" name="longDesc" class="mytextarea">Enter long description here</textarea>
         <label class="label">
           <span class="label-text text-lg">Price</span>
         </label>
