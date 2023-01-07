@@ -7,7 +7,7 @@ import ejs from 'ejs'
 import { NextFunction } from 'express'
 import '../configs/passport'
 import nodemailer from 'nodemailer'
-//import { MongoError } from 'mongodb'
+import bcrypt from 'bcrypt'
 
 const APLUSCADEMY_USERNAME = process.env.APLUSCADEMY_USERNAME!
 const APLUSCADEMY_PASSWORD = process.env.APLUSCADEMY_PASSWORD!
@@ -48,14 +48,19 @@ const postChangeName = asyncHandler(async (req, res) => {
   res.redirect('/profile')
 })
 
+let NEW_EMAIL = ''
 const postChangeEmail = asyncHandler(async (req, res, next) => {
   const categoriesResult = await getCategories()
-  //const user: IUser = req.body
   const user = await User.findById({ _id: req.user?.id })
-
+  const isExistedEmail = await User.findOne({ email: req.body.newEmail }).exec()
+  if (isExistedEmail) {
+    req.flash('changeEmailFail', 'This email has been used.')
+    res.redirect('/profile')
+    next()
+  }
   res.cookie('userEmail', req.body.newEmail, { httpOnly: true })
   sendOTPVerificationEmail(user?._id, req.body.newEmail, next)
-
+  NEW_EMAIL = req.body.newEmail
   res.render('pages/profile', {
     isAuthenticated: req.isAuthenticated(),
     avatar: req.cookies.avatar,
@@ -66,22 +71,21 @@ const postChangeEmail = asyncHandler(async (req, res, next) => {
     userRole: user!.role,
     isOtpVerify: true
   })
-  // .catch((err) => {
-  //   let msg: string = err
-  //   if ((err as MongoError).code === 11000) {
-  //     msg = 'This email has been signed up.'
-  //   }
-  //   req.flash('errors', msg)
-  //   res.redirect('/profile')
-  // })
 })
 
 const postVerifyOtp = asyncHandler(async (req, res, _next) => {
   const sentOtp = req.body.newEmailOtp
+  const user = await User.findById(req.user?.id)
   const otp = await UserOTPVerification.findOne({ userId: req.user?.id })
-  if (sentOtp == otp!.otp) {
+  const isOtp = await bcrypt.compare(sentOtp, otp!.otp)
+  if (isOtp) {
+    await user?.updateOne({ email: NEW_EMAIL })
+    req.flash('changeEmailSuccess', 'Email changed successfully')
     res.redirect('/profile')
-  } else res.redirect('/home')
+  } else {
+    req.flash('changeEmailFail', 'Failed to change email. Try again.')
+    res.redirect('/profile')
+  }
 })
 
 const postChangePassword = asyncHandler(async (req, res, next) => {
