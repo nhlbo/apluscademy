@@ -129,7 +129,10 @@ userSchema.methods.checkPassword = async function (password: string, id: string)
   return false
 }
 
-userOTPVerificationSchema.pre('save', function (next) {
+userOTPVerificationSchema.pre('save', async function (next) {
+  console.log(this.otp)
+  const unhashOtp = this.otp
+  this.otp = await bcrypt.hash(unhashOtp, 10)
   this.createdAt = new Date()
   this.expiresAt = new Date(+new Date() + 2 * 60 * 1000)
   next()
