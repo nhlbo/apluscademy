@@ -1,6 +1,24 @@
 import { asyncHandler } from '../middlewares/async'
-import { User } from '../models/user'
+import { User, UserOTPVerification } from '../models/user'
 import { getCategories } from '../utils/utils'
+import mongoose from 'mongoose'
+import { generateOtp } from '../utils/generator'
+import ejs from 'ejs'
+import { NextFunction } from 'express'
+import '../configs/passport'
+import nodemailer from 'nodemailer'
+//import { MongoError } from 'mongodb'
+
+const APLUSCADEMY_USERNAME = process.env.APLUSCADEMY_USERNAME!
+const APLUSCADEMY_PASSWORD = process.env.APLUSCADEMY_PASSWORD!
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: APLUSCADEMY_USERNAME,
+    pass: APLUSCADEMY_PASSWORD
+  }
+})
 
 const getProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user!.id).exec()
@@ -12,7 +30,8 @@ const getProfile = asyncHandler(async (req, res) => {
     userEmail: user!.email,
     userName: user!.profile.name,
     dateCreated: user!.createdAt,
-    userRole: user!.role
+    userRole: user!.role,
+    isOtpVerify: false
   })
 })
 
@@ -24,19 +43,45 @@ const updateAvatar = asyncHandler(async (req, res, _next) => {
   res.redirect('/profile')
 })
 
-const getChangeName = asyncHandler(async (req, res) => {
-  const categoriesResult = await getCategories()
-  res.render('pages/edit_name', { isAuthenticated: req.isAuthenticated(), categories: categoriesResult })
-})
-
 const postChangeName = asyncHandler(async (req, res) => {
   await User.findOneAndUpdate(req.user!.id, { 'profile.name': req.body.newName })
   res.redirect('/profile')
 })
 
-const getChangePassword = asyncHandler(async (req, res) => {
+const postChangeEmail = asyncHandler(async (req, res, next) => {
   const categoriesResult = await getCategories()
-  res.render('pages/edit_password', { isAuthenticated: req.isAuthenticated(), categories: categoriesResult })
+  //const user: IUser = req.body
+  const user = await User.findById({ _id: req.user?.id })
+
+  res.cookie('userEmail', req.body.newEmail, { httpOnly: true })
+  sendOTPVerificationEmail(user?._id, req.body.newEmail, next)
+
+  res.render('pages/profile', {
+    isAuthenticated: req.isAuthenticated(),
+    avatar: req.cookies.avatar,
+    categories: categoriesResult,
+    userEmail: user!.email,
+    userName: user!.profile.name,
+    dateCreated: user!.createdAt,
+    userRole: user!.role,
+    isOtpVerify: true
+  })
+  // .catch((err) => {
+  //   let msg: string = err
+  //   if ((err as MongoError).code === 11000) {
+  //     msg = 'This email has been signed up.'
+  //   }
+  //   req.flash('errors', msg)
+  //   res.redirect('/profile')
+  // })
+})
+
+const postVerifyOtp = asyncHandler(async (req, res, _next) => {
+  const sentOtp = req.body.newEmailOtp
+  const otp = await UserOTPVerification.findOne({ userId: req.user?.id })
+  if (sentOtp == otp!.otp) {
+    res.redirect('/profile')
+  } else res.redirect('/home')
 })
 
 const postChangePassword = asyncHandler(async (req, res, next) => {
@@ -63,4 +108,46 @@ const postChangePassword = asyncHandler(async (req, res, next) => {
   res.redirect('/profile#password-form-location')
 })
 
-export { getProfile, updateAvatar, getChangeName, postChangeName, getChangePassword, postChangePassword }
+const sendOTPVerificationEmail = async (id: mongoose.Types.ObjectId, email: string, next: NextFunction) => {
+  const otp = generateOtp()
+  await UserOTPVerification.findOneAndUpdate(
+    {
+      userId: id
+    },
+    {
+      userId: id,
+      otp
+    },
+    { new: true, upsert: true }
+  )
+    .then((res) => {
+      res.otp = otp
+      res.save()
+      ejs.renderFile('./src/views/pages/email_verification.ejs', { OTP: otp }, function (err, data) {
+        if (err) {
+          next(err)
+        } else {
+          transporter
+            .sendMail({
+              from: '"A⁺cademy" <apluscademy0@gmail.com>',
+              to: email,
+              subject: 'Email verification',
+              text: '',
+              html: data
+            })
+            .then((info) => console.log('Message sent: %s', info.messageId))
+        }
+      })
+    })
+    .catch((err) => next(err))
+}
+
+export {
+  getProfile,
+  updateAvatar,
+  postChangeName,
+  postChangePassword,
+  postChangeEmail,
+  sendOTPVerificationEmail,
+  postVerifyOtp
+}
