@@ -8,6 +8,7 @@ import '../configs/passport'
 import { asyncHandler } from '../middlewares/async'
 import { IUser, User, UserOTPVerification } from '../models/user'
 import { generateOtp } from '../utils/generator'
+import bcrypt from 'bcrypt'
 
 const getRegister = asyncHandler(async (_, res) => {
   res.render('pages/signup')
@@ -105,7 +106,10 @@ const postVerifyEmail = asyncHandler(async (req, res, next) => {
     res.render('pages/verify')
     return next()
   }
-  if (userOTP!.otp !== req.body.otp) {
+  const isOtp = await bcrypt.compare(req.body.otp, userOTP!.otp)
+  // for fast sign up ( delete later )
+  console.log(req.body.otp)
+  if (!isOtp) {
     req.flash('errors', 'Invalid code.')
     res.render('pages/verify')
     return next()
