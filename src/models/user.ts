@@ -24,6 +24,7 @@ interface IUser extends mongoose.Document {
   about: string
   awards: []
   watchList: []
+  isLock: boolean
 }
 
 declare global {
@@ -82,7 +83,8 @@ const userSchema = new mongoose.Schema<IUser>({
     {
       course: { type: mongoose.Types.ObjectId, ref: 'Course' }
     }
-  ]
+  ],
+  isLock: Boolean
 })
 
 interface IUserOTPVerification extends mongoose.Document {

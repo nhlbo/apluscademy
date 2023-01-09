@@ -139,6 +139,11 @@ const postLoginPassword = asyncHandler(async (req, res, next) => {
       req.flash('errors', 'User not found.')
       res.redirect('/login')
     } else {
+      if (user!.isLock) {
+        req.flash('errors', 'User has been locked.')
+        res.redirect('/login')
+        return next()
+      }
       req.logIn(user, function () {
         res.cookie('avatar', user.picture, { httpOnly: true })
         res.redirect('/')
@@ -175,6 +180,20 @@ const postLoginGoogle = asyncHandler(async (req, res, next) => {
   })(req, res, next)
 })
 
+const postLock = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id })
+  user!.isLock = true
+  user!.save()
+  res.redirect(`/lecturer/${req.params.id}`)
+})
+
+const postUnlock = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id })
+  user!.isLock = false
+  user!.save()
+  res.redirect(`/lecturer/${req.params.id}`)
+})
+
 const postLogout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err)
@@ -201,6 +220,8 @@ export {
   postLoginPassword,
   postLoginFacebook,
   postLoginGoogle,
+  postLock,
+  postUnlock,
   postLogout,
   isAuthenticated,
   isNotAuthenticated
