@@ -30,8 +30,8 @@ const users = [
 const data = {
   Categories: [
     {
+      image: 'https://s.udemycdn.com/home/top-categories/lohp-category-development-2x-v2.jpg',
       name: 'Development',
-      image: '',
       courses: [
         {
           title: 'Javascript for Beginners',
@@ -124,6 +124,7 @@ const data = {
       ]
     },
     {
+      image: 'https://s.udemycdn.com/home/top-categories/lohp-category-music-2x-v2.jpg',
       name: 'Music',
       courses: [
         {
@@ -246,7 +247,7 @@ const nukedb = async () => {
             })
           )
           const lecturer = lecturers[Math.floor(Math.random() * lecturers.length)]
-          const reviewIds = reviews.map(review => review._id)
+          const reviewIds = reviews.map((review) => review._id)
           return await Course.create({
             lecturer: lecturer._id,
             title: course.title,
@@ -260,7 +261,7 @@ const nukedb = async () => {
           })
         })
       )
-      const courseIds = courseModels.map(course => course._id)
+      const courseIds = courseModels.map((course) => course._id)
       return await Category.create({ name: category.name, image: category.image, courses: courseIds })
     })
   ).then(() => {
