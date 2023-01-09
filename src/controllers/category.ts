@@ -3,6 +3,7 @@ import { Category } from '../models/category'
 import { Course } from '../models/course'
 import { Review } from '../models/review'
 import { User } from '../models/user'
+import { Chapter } from '../models/chapter'
 //import { Review } from '../models/review'
 import { getCategories } from '../utils/utils'
 
@@ -73,13 +74,29 @@ const getCourse = asyncHandler(async (req, res) => {
       return await Review.findById(reviewId)
     })
   )
+  const chapterIds = course!.chapters
+  const chapters = await Promise.all(
+    chapterIds?.map(async (chapterId) => {
+      return await Chapter.findById(chapterId)
+    })
+  )
+  let totalStars = 0
+  let avgStars = 0
+  reviews.forEach(function (review) {
+    totalStars += review?.ratingStars!
+    avgStars = totalStars / reviews.length
+  })
+  let roundedAvgStars = Math.round(avgStars * 10) / 10
+
   res.render('pages/course', {
     isAuthenticated: req.isAuthenticated(),
     avatar: req.cookies.avatar,
     categories: categoriesResult,
     course: course,
     lecturer: lecturer,
-    reviews: reviews
+    reviews: reviews,
+    chapters: chapters,
+    avgStars: roundedAvgStars
   })
 })
 
