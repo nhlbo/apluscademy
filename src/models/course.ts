@@ -87,6 +87,8 @@ const courseSchema = new mongoose.Schema({
   }
 })
 
+courseSchema.index({ title: 'text', shortDesc: 'text' })
+
 const Course = mongoose.model('Course', courseSchema)
 
 export { ICourse, Course }

@@ -11,7 +11,8 @@ import {
   homeRoute,
   lecturerRoute,
   profileRoute,
-  studentRoute
+  studentRoute,
+  courseSearchRoute
 } from './src/routes'
 
 const app = express()
@@ -49,6 +50,7 @@ app.use('/lecturer', lecturerRoute)
 app.use('/category', categoryRoute)
 app.use('/course', courseRoute)
 app.use('/student', studentRoute)
+app.use('/course_search', courseSearchRoute)
 
 app.listen(PORT, () => {
   console.log(`The application is listening on port ${PORT}.`)
