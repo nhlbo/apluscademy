@@ -1,6 +1,9 @@
 import { asyncHandler } from '../middlewares/async'
 import { Category } from '../models/category'
 import { Course } from '../models/course'
+import { Review } from '../models/review'
+import { User } from '../models/user'
+//import { Review } from '../models/review'
 import { getCategories } from '../utils/utils'
 
 const postAddCategory = asyncHandler(async (req, res, _next) => {
@@ -62,14 +65,21 @@ const getCourseList = asyncHandler(async (req, res) => {
 
 const getCourse = asyncHandler(async (req, res) => {
   const categoriesResult = await getCategories()
-  await Course.findOne(req.query).exec(async function (err, course) {
-    if (err) throw err
-    res.render('pages/course', {
-      isAuthenticated: req.isAuthenticated(),
-      avatar: req.cookies.avatar,
-      categories: categoriesResult,
-      course: course
+  const course = await Course.findOne({ _id: req.params.id })
+  const lecturer = await User.findById(course?.lecturer)
+  const reviewIds = course!.reviews
+  const reviews = await Promise.all(
+    reviewIds?.map(async (reviewId) => {
+      return await Review.findById(reviewId)
     })
+  )
+  res.render('pages/course', {
+    isAuthenticated: req.isAuthenticated(),
+    avatar: req.cookies.avatar,
+    categories: categoriesResult,
+    course: course,
+    lecturer: lecturer,
+    reviews: reviews
   })
 })
 
@@ -84,6 +94,17 @@ const postEditCategoryName = asyncHandler(async (req, res) => {
   res.redirect('/category/' + req.params.id)
 })
 
+const postCollectFeedback = asyncHandler(async (req, res) => {
+  const course = await Course.findById({ _id: req.params.id })
+  const starRated = req.body.ratingStars
+  const fb = await Review.create({ author: req.user?.id, ratingStars: starRated, feedback: req.body.courseFeedback })
+  course!.reviews.push(fb.id)
+  course!.save()
+  res.redirect('/category' + req.url)
+})
+
+const postEditFeedback = asyncHandler(async (_req, _res) => {})
+
 export {
   getAddCategory,
   postAddCategory,
@@ -91,5 +112,7 @@ export {
   getCourseList,
   postDeleteCategory,
   getCourse,
-  postEditCategoryName
+  postEditCategoryName,
+  postCollectFeedback,
+  postEditFeedback
 }

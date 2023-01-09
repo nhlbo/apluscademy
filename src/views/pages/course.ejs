@@ -14,28 +14,30 @@
           <ul>
             <li><a>Categories</a></li>
             <li><a>Web Development</a></li>
-            <li><a>Lmao</a></li>
           </ul>
         </div>
         <div class="text-3xl"><%= course.title %></div>
-        <div>Become a full stack web developer with just one single course.</div>
+        <div><%= course.shortDisc %></div>
         <span class="badge">Best seller</span>
-        <div class="rating">
-          <input type="radio" name="rating-1" class="mask mask-star" />
-          <input type="radio" name="rating-1" class="mask mask-star" checked />
-          <input type="radio" name="rating-1" class="mask mask-star" />
-          <input type="radio" name="rating-1" class="mask mask-star" />
-          <input type="radio" name="rating-1" class="mask mask-star" />
-        </div>
-        <div>Last update: 2 months ago</div>
-        <div class="pb-5">Create by name of prof</div>
+        <!-- <div class="rating">
+          <input type="radio" name="ratingStarsclass="mask mask-star-2 bg-orange-400" /> <input type="radio"
+          name="ratingStarsclass="mask mask-star-2 bg-orange-400" checked /> <input type="radio"
+          name="ratingStarsclass="mask mask-star-2 bg-orange-400" /> <input type="radio" name="ratingStarsclass="mask
+          mask-star-2 bg-orange-400" /> <input type="radio" name="ratingStarsclass="mask mask-star-2 bg-orange-400" />
+        </div> -->
+        <div><%= course.dateLastUpdated %></div>
+        <% if (lecturer.name) { %>
+        <div class="pb-5">Create by <%= lecturer.name %></div>
+        <% } else { %>
+        <div class="pb-5">Create by <%= lecturer.email %></div>
+        <% } %>
       </div>
       <div class="w-full flex">
         <!-- course description etc (1st half on udemy course) -->
         <div class="w-3/4 flex-auto mr-10 ml-10">
           <div>
             <!-- What you'll learn-->
-            <div class="border mt-10 p-7 rounded-box">
+            <!-- <div class="border mt-10 p-7 rounded-box">
               <div class="text-xl font-semibold mb-7">What you'll learn</div>
               <div class="grid grid-cols-2 gap-10">
                 <div class="w-full">
@@ -71,39 +73,75 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="text-xl font-semibold mb-7 mt-10">Course content</div>
             <ul class="ml-10 mb-10">
-              <li><a href="#">chapter 1</a></li>
-              <li><a href="#">chapter 1</a></li>
-              <li><a href="#">chapter 1</a></li>
-              <li><a href="#">chapter 1</a></li>
-              <li><a href="#">chapter 1</a></li>
+              <li>chap1</li>
             </ul>
 
             <div class="text-xl font-semibold mb-7">Description</div>
-            <div>
-              Welcome to the Complete Web Development Bootcamp, the only course you need to learn to code and become a
-              full-stack web developer. With 150,000+ ratings and a 4.8 average, my Web Development course is one of the
-              HIGHEST RATED courses in the history of Udemy! At 65+ hours, this Web Development course is without a
-              doubt the most comprehensive web development course available online. Even if you have zero programming
-              experience, this course will take you from beginner to mastery. Here's why: The course is taught by the
-              lead instructor at the App Brewery, London's leading in-person programming bootcamp. The course has been
-              updated to be 2023 ready and you'll be learning the latest tools and technologies used at large companies
-              such as Apple, Google and Netflix.
-            </div>
+            <div><%= course.longDesc %></div>
 
-            <div>Previous students' reviews</div>
+            <div class="text-xl font-semibold mt-5 mb-3">Previous students' feedback</div>
+            <div class="ml-10 mr-20">
+              <% (reviews.forEach(function(review) { %>
+              <div class="p-2 border rounded-box mt-2 mb-2">
+                <div class="flex">
+                  <span class="ml-2"><%= review.ratingStars %></span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-star-fill mt-1 ml-2"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+                    />
+                  </svg>
+                </div>
+                <div class="p-2"><%= review.feedback %></div>
+              </div>
+              <% })) %>
+            </div>
+            <form class="form-control w-full grid" action="/category/course/<%=course.id%>" method="post">
+              <div class="text-xl font-semibold mt-5 mb-3">Leave your feedback</div>
+              <div class="rating ml-10 mb-5">
+                <input
+                  type="radio"
+                  name="ratingStars"
+                  class="mask mask-star-2 bg-orange-400 hidden"
+                  value="0"
+                  checked
+                />
+                <input type="radio" name="ratingStars" class="mask mask-star-2 bg-orange-400" value="1" />
+                <input type="radio" name="ratingStars" class="mask mask-star-2 bg-orange-400" value="2" />
+                <input type="radio" name="ratingStars" class="mask mask-star-2 bg-orange-400" value="3" />
+                <input type="radio" name="ratingStars" class="mask mask-star-2 bg-orange-400" value="4" />
+                <input type="radio" name="ratingStars" class="mask mask-star-2 bg-orange-400" value="5" />
+              </div>
+              <input
+                type="text"
+                placeholder="Your thoughts on this course"
+                name="courseFeedback"
+                class="input input-bordered ml-10 mr-20"
+              />
+              <div class="flex">
+                <button class="btn w-36 mt-10 ml-96 justify-center">Send</button>
+              </div>
+            </form>
           </div>
         </div>
+
         <!-- price tag & things (2nd half on udemy course) -->
         <div class="w-1/4 flex-auto border mr-10 ml-10 bg-white rounded-box p-2 -mt-10 shadow-2xl h-3/4 z-10">
-          <img src="images/login-background.png" class="w-full rounded-box" />
-          <div class="text-xl font-semibold mb-5 mt-5 ml-5">12345678910 vnd</div>
-          <button class="btn w-full mb-2">add to cart</button>
-          <button class="btn w-full btn-outline">buy now</button>
-          <div class="ml-5 mt-5">
+          <img src="<%= course.image %>" class="w-full rounded-box" />
+          <div class="text-xl font-semibold mb-5 mt-5 ml-5"><%= course.basePrice %> $</div>
+          <button class="btn w-full mb-2">Add course</button>
+          <button class="btn w-full btn-outline">Add to watch list</button>
+          <!-- <div class="ml-5 mt-5">
             <div class="font-semibold mb-2">This course includes:</div>
             <div class="ml-10">
               <div>69 videos</div>
@@ -113,7 +151,7 @@
               <div>69 videos</div>
               <div>69 videos</div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </main>

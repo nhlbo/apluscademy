@@ -6,7 +6,8 @@ import {
   getCourseList,
   getCourse,
   postDeleteCategory,
-  postEditCategoryName
+  postEditCategoryName,
+  postCollectFeedback
 } from '../controllers/category'
 import { upload } from '../utils/amazonS3'
 
@@ -21,5 +22,7 @@ router.route('/course/:id').get(getCourse)
 
 router.route('/delete/:id').post(postDeleteCategory)
 router.route('/edit/:id').post(postEditCategoryName)
+
+router.route('/course/:id').post(postCollectFeedback)
 
 export { router as categoryRoute }
