@@ -75,8 +75,7 @@ const courseSchema = new mongoose.Schema({
     type: [mongoose.Types.ObjectId],
     ref: 'Chapter'
   },
-  thumbnailSmall: String,
-  thumbnailLarge: String,
+  thumbnail: String,
   basePrice: {
     type: Number,
     required: [true, 'Please add a price'],
