@@ -51,12 +51,16 @@
             ></path>
           </svg>
         </div>
-        <input
-          type="search"
-          class="w-full p-4 pl-10 input input-bordered w-full rounded-lg"
-          placeholder="Search for anything"
-          required
-        />
+        <form action="/course_search" method="post">
+          <input
+            type="search"
+            class="w-full p-4 pl-10 input input-bordered w-full rounded-lg"
+            placeholder="Search for anything"
+            required
+            id="search"
+            name="search"
+          />
+        </form>
       </div>
     </div>
   </div>
