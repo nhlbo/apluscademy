@@ -4,7 +4,6 @@ import {
   postAddCategory,
   getCategoryList,
   getCourseList,
-  getCourse,
   postDeleteCategory,
   postEditCategoryName,
   postCollectFeedback
@@ -18,7 +17,6 @@ router.route('/add').post(upload.single('upload'), postAddCategory)
 
 router.route('/').get(getCategoryList)
 router.route('/:id').get(getCourseList)
-router.route('/course/:id').get(getCourse)
 
 router.route('/delete/:id').post(postDeleteCategory)
 router.route('/edit/:id').post(postEditCategoryName)

@@ -11,17 +11,21 @@ mongoose.connect(MONGO_DB_URL).then(() => console.log('Connected to the database
 
 const users = [
   {
+    name: 'Nguyen Hoang Long',
     email: '19127463@student.hcmus.edu.vn',
     password: '12345678',
-    role: 'student'
+    role: 'student',
   },
   { email: 'nanera@gmail.com', password: '12345678', role: 'student' },
   {
+    name: 'Nguyen Hoang Long',
     email: 'hoanglong@gmail.com',
     password: '12345678',
-    role: 'lecturer'
+    role: 'lecturer',
+    about: 'Minerva McGonagall was born on 4 October in Scotland to Robert McGonagall and Isobel Ross. McGonagall was born a half-blood witch as her father was a Muggle and her mother a witch. McGonagall began her Hogwarts education at the age of eleven and was sorted into Gryffindor after being the longest ever Hatstall between Gryffindor and Ravenclaw. McGonagall became friends with Hufflepuff student and future colleague Pomona Sprout and gained a particular talent in the art of Transfiguration under the tutelage of then Transfiguration professor Albus Dumbledore. During this time, McGonagall managed to become an Animagus, taking the form of a tabby cat and filed her paperwork to be officially registered. McGonagall was also a skilled member of the Gryffindor Quidditch team. After graduation, McGonagall became an employee for the Ministry of Magic in the Department of Magical Law Enforcement where she met her husband, Elphinstone Urquart. McGonagall was offered a promotion but turned it down and applied to teach Transfiguration at Hogwarts under Dumbledore. During her employment at Hogwarts, McGonagall grew particularly close to Dumbledore and the two were near inseparable friends and colleagues, and he began to recognise her as one of his most trusted allies. Eventually, McGonagall became the Head of the Transfiguration Department as well as the Head of Gryffindor House. After Headmaster Armando Dippet\'s retirement and Dumbledore\'s appointment as Headmaster, McGonagall became his Deputy Headmistress. Despite being a crucial force during the First Wizarding War against Lord Voldemort, McGonagall was not a member of the initial forming of the Order of the Phoenix. During the war, McGonagall lost her brother, Robert Jr, and two of her favourite students, James and Lily Potter. Following the death of the Potters and the first downfall of Voldemort, McGonagall accompanied Dumbledore and Rubeus Hagrid in delivering the sole survivor of the encounter, Harry Potter, to his aunt and uncle Petunia and Vernon Dursley in Surrey. Despite McGonagall\'s reservations that the Dursleys were the "worst kind of Muggles", she understood that due to the framing and imprisonment of Harry\'s godfather Sirius Black, the Dursleys were the only family the infant had left. After the war, McGonagall and Elphinstone married, but three years later he died from a Venomous Tentacula bite, making Minerva a widow.[citation needed]'
   },
   {
+    name: 'Admin',
     email: 'admin@gmail.com',
     password: '12345678',
     role: 'admin'
@@ -218,7 +222,7 @@ const nukedb = async () => {
   await User.collection.drop().then(() => console.log('User dropped'))
   const userModels = await Promise.all(
     users.map(async (user) => {
-      return await User.create({ email: user.email, isVerified: true, role: user.role }).then(async (result) => {
+      return await User.create({ email: user.email, isVerified: true, role: user.role, name: user.name, about: user.about }).then(async (result) => {
         result.password = user.password
         return await result.save()
       })
