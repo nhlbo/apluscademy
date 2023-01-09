@@ -44,9 +44,9 @@ passport.use(
         const email = profile.emails ? profile.emails[0] : null
         const user: IUser = (email !== null ? await User.findOne({ email }) : null) || new User()
         user.facebook = profile.id
-        user.profile.name = profile.displayName!
-        user.profile.gender = profile.gender!
-        user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`
+        user.name = profile.displayName!
+        user.gender = profile.gender!
+        user.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`
         user.save((err) => {
           done(err, user)
         })
@@ -76,8 +76,8 @@ passport.use(
         const email = profile.emails ? profile.emails[0] : null
         const user: IUser = (email !== null ? await User.findOne({ email }) : null) || new User()
         user.google = profile.id
-        user.profile.name = profile.displayName!
-        user.profile.picture = profile.photos![0].value
+        user.name = profile.displayName!
+        user.picture = profile.photos![0].value
         user.save((err) => {
           done(err, user)
         })

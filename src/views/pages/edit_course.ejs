@@ -54,37 +54,72 @@
 <main class="h-full">
   <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16 justify-center">
     <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
-      <form id="edit-course-form" class="form-control w-full" action="/course/add" method="post" enctype="multipart/form-data">
+      <form id="edit-course-form" class="form-control w-full" action="/course/edit/<%= course._id %>" method="post"
+            enctype="multipart/form-data">
         <span class="text-3xl font-semibold">Edit course</span>
         <label class="label mt-5">
           <span class="label-text text-lg">Course Name</span>
         </label>
-        <input type="text" placeholder="Course name" name="title" class="input input-bordered" autofocus/>
+        <input id="course-title" type="text" placeholder="Course name" name="title" class="input input-bordered"
+               value="<%= course.title %>"/>
         <label class="label">
           <span class="label-text text-lg">Category</span>
         </label>
-        <select class="select select-bordered w-full">
+        <select id="category" class="select select-bordered w-full">
           <option disabled selected>Choose category</option>
           <% categories.forEach(function(category) { %>
+          <% if (category.name == course.category) { %>
+          <option selected="selected"><%= category.name %></option>
+          <% } else { %>
           <option><%= category.name %></option>
-          <% }) %>
+          <% }}) %>
         </select>
         <label class="label mt-0">
           <span class="label-text text-lg">Short Description</span>
         </label>
-        <input type="text" placeholder="Short Description" name="shortDesc" class="input input-bordered" autofocus/>
+        <input type="text" placeholder="Short Description" name="shortDesc" class="input input-bordered" autofocus value="<%= course.shortDesc %>"/>
         <label class="label">
           <span class="label-text text-lg">Long Description</span>
         </label>
-        <textarea id="longDesc" name="longDesc" class="mytextarea">Enter long description here</textarea>
+        <textarea id="longDesc" name="longDesc" class="mytextarea"><%= course.longDesc %></textarea>
         <label class="label">
           <span class="label-text text-lg">Price ($)</span>
         </label>
-        <input type="number" placeholder="Course price" name="basePrice" class="input input-bordered" min="0"/>
+        <input type="number" placeholder="Course price" name="basePrice" class="input input-bordered" min="0" value="<%= course.basePrice %>"/>
         <label class="label">
           <span class="label-text text-lg">Content</span>
         </label>
-        <div id="show-content" class="list-group"></div>
+        <div id="show-content" class="list-group">
+          <% chapters.forEach(function(chapter) { %>
+          <div id="<%= chapter._id %>" class="show-content-item card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
+            <button class="btn btn-sm btn-circle -right-3 -top-3 absolute course-btn" onclick="document.getElementById(this.parentNode.id).remove(); return false;">✕</button>
+            <div class="card-body">
+              <h2 class="card-title">Chapter</h2>
+            </div>
+            <input
+              type="text"
+              placeholder="Chapter title"
+              name="chapterTitle"
+              class="input input-bordered w-full"
+              id="chapterTitle"
+              value="<%= chapter.title %>"
+            />
+            <div id="url" class="hidden"><%= chapter.video %>"</div>
+            <input
+              type="file"
+              placeholder="Video"
+              name="videoFile"
+              class="file-input file-input-bordered w-full mt-5"
+              accept="video/mp4,video/x-m4v,video/*"
+              id="videoFile"
+              onchange="updateVideo(this.parentNode.id)"
+            />
+            <video id="player" class="mt-5" playsinline controls data-poster="/path/to/poster.jpg">
+              <source src="<%= chapter.video %>" type="video/mp4" />
+            </video>
+          </div>
+          <% }) %>
+        </div>
         <a href="#" class="flex mt-3">
           <div>
             <svg
@@ -100,11 +135,15 @@
               />
             </svg>
           </div>
-          <button type="button" class="font-semibold ml-2 text-lg" onclick="pushDivTag(); return false;">Add a chapter to your course</button>
+          <button type="button" class="font-semibold ml-2 text-lg" onclick="pushDivTag(); return false;">Add a chapter
+            to your course
+          </button>
         </a>
 
         <!-- <input type="file" name="image" class="file-input file-input-bordered w-full max-w-xs" /> -->
-        <button class="btn btn-block justify-self-center mt-16 w-full mb-5 course-btn" onclick="submitForm(); return false;">Edit course</button>
+        <button class="btn btn-block justify-self-center mt-16 w-full mb-5 course-btn"
+                onclick="submitForm();">Edit course
+        </button>
         <!-- <button type="button" class="btn btn-outline">Add a chapter to your course</button> -->
       </form>
     </div>

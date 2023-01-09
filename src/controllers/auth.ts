@@ -75,7 +75,7 @@ const postRegister = asyncHandler((req, res, next) => {
       result.password = user.password
       await result.save()
       res.cookie('userEmail', user.email, { httpOnly: true })
-      res.cookie('avatar', result.profile.picture, { httpOnly: true })
+      res.cookie('avatar', result.picture, { httpOnly: true })
       sendOTPVerificationEmail(result._id, user.email, next)
     })
     .then(() => res.redirect('/verify'))
@@ -140,7 +140,7 @@ const postLoginPassword = asyncHandler(async (req, res, next) => {
       res.redirect('/login')
     } else {
       req.logIn(user, function () {
-        res.cookie('avatar', user.profile.picture, { httpOnly: true })
+        res.cookie('avatar', user.picture, { httpOnly: true })
         res.redirect('/')
       })
     }
@@ -155,7 +155,7 @@ const postLoginFacebook = asyncHandler(async (req, res, next) => {
       return next(err)
     }
     req.logIn(user, function () {
-      res.cookie('avatar', user.profile.picture, { httpOnly: true })
+      res.cookie('avatar', user.picture, { httpOnly: true })
       res.redirect('/')
     })
   })(req, res, next)
@@ -169,7 +169,7 @@ const postLoginGoogle = asyncHandler(async (req, res, next) => {
       return next(err)
     }
     req.logIn(user, function () {
-      res.cookie('avatar', user.profile.picture, { httpOnly: true })
+      res.cookie('avatar', user.picture, { httpOnly: true })
       res.redirect('/')
     })
   })(req, res, next)
