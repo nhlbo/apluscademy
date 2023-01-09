@@ -23,6 +23,7 @@ interface IUser extends mongoose.Document {
   authoredCourses: []
   about: string
   awards: []
+  watchList: []
 }
 
 declare global {
@@ -67,10 +68,7 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   ownedCourses: [
     {
-      course: { type: mongoose.Types.ObjectId, ref: 'Course' },
-      chapterInfo: [
-        { chapter: { type: mongoose.Types.ObjectId, ref: 'Chapter' }, timestamp: Number, completed: Boolean }
-      ]
+      course: { type: mongoose.Types.ObjectId, ref: 'Course' }
     }
   ],
   authoredCourses: { type: [mongoose.Types.ObjectId], ref: 'Course' },
@@ -78,6 +76,11 @@ const userSchema = new mongoose.Schema<IUser>({
   awards: [
     {
       type: String
+    }
+  ],
+  watchList: [
+    {
+      course: { type: mongoose.Types.ObjectId, ref: 'Course' }
     }
   ]
 })
