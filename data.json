@@ -1,6 +1,7 @@
 {
   "Categories": [
     {
+      "image": "https://s.udemycdn.com/home/top-categories/lohp-category-development-2x-v2.jpg",
       "name": "Development",
       "courses": [
         {
@@ -86,6 +87,7 @@
       ]
     },
     {
+      "image": "https://s.udemycdn.com/home/top-categories/lohp-category-music-2x-v2.jpg",
       "name": "Music",
       "courses": [
         {
