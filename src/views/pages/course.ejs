@@ -57,10 +57,17 @@
         <div class="w-3/4 flex-auto mr-10 ml-10">
           <div>
             <div class="text-xl font-semibold mb-7 mt-10">Course content</div>
-            <div class="p-5 rounded-box border mb-10 ml-10 mr-10">
-              <ul class="ml-10 mb-10">
+            <div class="p-10 rounded-box border">
+              <ul class="mb-10">
                 <% (chapters.forEach(function(chapter) { %>
-                <li><a><%= chapter.title %></a></li>
+                <div id="<%= chapter._id %>" class="show-content-item card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
+                  <div class="card-body">
+                    <h2 class="card-title"><%= chapter.title %></h2>
+                  </div>
+                  <video id="player" class="mt-5" playsinline controls data-poster="/path/to/poster.jpg">
+                    <source src="<%= chapter.video %>" type="video/mp4" />
+                  </video>
+                </div>
                 <% })) %>
               </ul>
             </div>
