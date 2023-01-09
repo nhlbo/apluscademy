@@ -1,10 +1,7 @@
 import mongoose from 'mongoose'
-import { ICourse } from './course'
-import { IUser } from './user'
 
 interface IReview {
-  course: ICourse
-  author: IUser
+  author: string
   feedback: string
   ratingStars: number
 }
@@ -32,5 +29,5 @@ const reviewSchema = new mongoose.Schema({
   }
 })
 
-const Review = mongoose.model('Course', reviewSchema)
+const Review = mongoose.model('Review', reviewSchema)
 export { IReview, Review }

@@ -12,7 +12,7 @@ interface ICourse {
 }
 
 const courseSchema = new mongoose.Schema({
-  image: Buffer,
+  image: String,
   lecturer: {
     type: mongoose.Types.ObjectId,
     required: [true, 'Course must have a lecturer'],
@@ -29,7 +29,7 @@ const courseSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, 'Please add a short description'],
-    maxLength: [100, 'Short description may only have 100 characters or fewer']
+    maxLength: [300, 'Short description may only have 100 characters or fewer']
   },
   longDesc: {
     type: String,

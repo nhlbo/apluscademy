@@ -130,11 +130,7 @@ userSchema.pre('save', function (next) {
 
 userSchema.methods.checkPassword = async function (password: string, id: string) {
   const user = await User.findOne({ id }).select('password').exec()
-  const isPassword = await bcrypt.compare(password, user?.password!)
-  if (isPassword) {
-    return true
-  }
-  return false
+  return await bcrypt.compare(password, user?.password!)
 }
 
 userOTPVerificationSchema.pre('save', async function (next) {
