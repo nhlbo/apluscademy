@@ -87,7 +87,8 @@
         <div class="w-1/2 pl-36 pr-10">
           <div class="text-2xl font-semibold">About</div>
           <div class="h-1.5 w-12 bg-purple-800 mt-5 mb-5"></div>
-          <div class="opacity-80">
+          <div class="opacity-80"><%= lecturer.about %></div>
+          <!-- <div class="opacity-80">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus ad voluptatibus rem recusandae earum
             perferendis cupiditate quisquam doloremque corporis tenetur suscipit assumenda, cum minus explicabo,
             doloribus nulla corrupti, quibusdam error. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
@@ -95,10 +96,31 @@
             suscipit perspiciatis provident, blanditiis molestias veniam neque. Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Ex, veniam ea tenetur labore facilis nemo eveniet repellat laudantium fugiat molestias
             odio obcaecati maxime enim iusto rem doloribus? A, sapiente ad!
-          </div>
+          </div> -->
         </div>
         <div class="w-1/2 pr-36 pl-10">
           <div class="text-2xl font-semibold">Honors & Awards</div>
+          <% if (lecturer.awards.length > 0) { %> <% for(let award of lecturer.awards) { %>
+          <div class="flex mt-2">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                class="bi bi-award-fill mt-1 mr-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"
+                />
+                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+              </svg>
+            </div>
+            <div><%= award %></div>
+          </div>
+
+          <% } %> <% } %>
           <div class="flex mt-2">
             <div>
               <svg
@@ -117,7 +139,7 @@
             </div>
             <div>Top 10 Lecturers of January</div>
           </div>
-          <div class="flex">
+          <div class="flex mt-2">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

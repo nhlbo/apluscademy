@@ -26,6 +26,8 @@ interface IUser extends mongoose.Document {
   }
   ownedCourses: []
   authoredCourses: []
+  about: string
+  awards: []
 }
 
 declare global {
@@ -81,7 +83,13 @@ const userSchema = new mongoose.Schema<IUser>({
       ]
     }
   ],
-  authoredCourses: { type: [mongoose.Types.ObjectId], ref: 'Course' }
+  authoredCourses: { type: [mongoose.Types.ObjectId], ref: 'Course' },
+  about: { type: String, default: '' },
+  awards: [
+    {
+      type: String
+    }
+  ]
 })
 
 interface IUserOTPVerification extends mongoose.Document {
