@@ -1,30 +1,11 @@
-let chapters = []
+let chapter = 0
 
-const renderChapters = () => {
-  let chapterStr = ''
-  for (let i = 0; i < chapters.length; i++) {
-    chapterStr += `<div class="card w-full bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title">Chapter ${i + 1}</h2>
-          <p>${chapters[i].chapterTitle}</p>
-        </div>
-      </div>`
-  }
-  console.log('chapterStr', chapterStr)
-  document.getElementById('show-content').innerHTML = chapterStr
-}
-
-const addChapter = (chapter) => {
-  chapters.push(chapter)
-  renderChapters()
-}
-
-let divTagStr = ''
-let chapterIndex = 1
 const pushDivTag = () => {
-  divTagStr += `<div class="card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mt-2">
+  chapter++
+  const divTagStr = `<div id="chapter-${chapter}" class="card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
+ <button class="btn btn-sm btn-circle -right-3 -top-3 absolute course-btn" onclick="document.getElementById(this.parentNode.id).remove(); return false;">✕</button>
  <div class="card-body">
-   <h2 class="card-title">Chapter <span>${chapterIndex}</span></h2>
+   <h2 class="card-title">Chapter</h2>
  </div>
  <input
    type="text"
@@ -44,6 +25,5 @@ const pushDivTag = () => {
    autofocus
  />
 </div>`
-  chapterIndex++
-  document.getElementById('show-content').innerHTML = divTagStr
+  document.getElementById('show-content').innerHTML += divTagStr
 }
