@@ -1,5 +1,6 @@
 import { Course } from '../models/course'
 import { asyncHandler } from '../middlewares/async'
+import { getCategories } from '../utils/utils'
 
 const getCourseCreation = asyncHandler(async (req, res, next) => {
   res.render('pages/course_creation', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar })
@@ -7,7 +8,8 @@ const getCourseCreation = asyncHandler(async (req, res, next) => {
 })
 
 const getAddCourse = asyncHandler(async (req, res, next) => {
-  res.render('pages/add_course', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar })
+  const categories = await getCategories()
+  res.render('pages/add_course', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar, categories })
   next()
 })
 

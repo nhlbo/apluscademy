@@ -1,110 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="/css/style.scss" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/script/add_course.js"></script>
-    <%- include('../partials/head'); %>
-    <script
-      src="https://cdn.tiny.cloud/1/2vyvzdwdb7w3p5f46wgu7ucrhdgskpwh4b8lbde27tv094sg/tinymce/6/tinymce.min.js"
-      referrerpolicy="origin"
-    ></script>
-    <script>
+<head>
+  <link rel="stylesheet" href="/css/style.scss"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <script src="/script/add_course.js"></script>
+  <%- include('../partials/head'); %>
+  <script
+    src="https://cdn.tiny.cloud/1/2vyvzdwdb7w3p5f46wgu7ucrhdgskpwh4b8lbde27tv094sg/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"
+  ></script>
+  <script>
       tinymce.init({
-        selector: '.mytextarea',
-        plugins: [
-          'a11ychecker',
-          'advlist',
-          'advcode',
-          'advtable',
-          'autolink',
-          'checklist',
-          'export',
-          'lists',
-          'link',
-          'image',
-          'charmap',
-          'preview',
-          'anchor',
-          'searchreplace',
-          'visualblocks',
-          'powerpaste',
-          'fullscreen',
-          'formatpainter',
-          'insertdatetime',
-          'media',
-          'table',
-          'help',
-          'wordcount'
-        ],
-        toolbar:
-          'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
-          'alignleft aligncenter alignright alignjustify | ' +
-          'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+          selector: '.mytextarea',
+          plugins: [
+              'a11ychecker',
+              'advlist',
+              'advcode',
+              'advtable',
+              'autolink',
+              'checklist',
+              'export',
+              'lists',
+              'link',
+              'image',
+              'charmap',
+              'preview',
+              'anchor',
+              'searchreplace',
+              'visualblocks',
+              'powerpaste',
+              'fullscreen',
+              'formatpainter',
+              'insertdatetime',
+              'media',
+              'table',
+              'help',
+              'wordcount'
+          ],
+          toolbar:
+              'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+              'alignleft aligncenter alignright alignjustify | ' +
+              'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
       })
-    </script>
-  </head>
-  <body>
-    <header>
-      <div class="navbar bg-base-100">
-        <a class="btn btn-ghost normal-case text-3xl" href="/">A⁺cademy</a>
-      </div>
-    </header>
-    <main class="h-full">
-      <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16 justify-center">
-        <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
-          <form class="form-control w-full" action="/course/add" method="post" enctype="multipart/form-data">
-            <span class="text-3xl font-semibold">Add a course</span>
-            <label class="label mt-5">
-              <span class="label-text text-lg">Course Name</span>
-            </label>
-            <input type="text" placeholder="Course name" name="title" class="input input-bordered" autofocus />
+  </script>
+  <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+</head>
+<body>
+<header>
+  <div class="navbar bg-base-100">
+    <a class="btn btn-ghost normal-case text-3xl" href="/">A⁺cademy</a>
+  </div>
+</header>
+<main class="h-full">
+  <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16 justify-center">
+    <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
+      <form id="add-course-form" class="form-control w-full" action="/course/add" method="post" enctype="multipart/form-data">
+        <span class="text-3xl font-semibold">Add a course</span>
+        <label class="label mt-5">
+          <span class="label-text text-lg">Course Name</span>
+        </label>
+        <input type="text" placeholder="Course name" name="title" class="input input-bordered" autofocus/>
+        <label class="label">
+          <span class="label-text text-lg">Category</span>
+        </label>
+        <select class="select select-bordered w-full">
+          <option disabled selected>Choose category</option>
+          <% categories.forEach(function(category) { %>
+          <option><%= category.name %></option>
+          <% }) %>
+        </select>
+        <label class="label mt-0">
+          <span class="label-text text-lg">Short Description</span>
+        </label>
+        <input type="text" placeholder="Short Description" name="shortDesc" class="input input-bordered" autofocus/>
+        <label class="label">
+          <span class="label-text text-lg">Long Description</span>
+        </label>
+        <textarea id="longDesc" name="longDesc" class="mytextarea">Enter long description here</textarea>
+        <label class="label">
+          <span class="label-text text-lg">Price ($)</span>
+        </label>
+        <input type="number" placeholder="Course price" name="basePrice" class="input input-bordered" min="0"/>
+        <label class="label">
+          <span class="label-text text-lg">Content</span>
+        </label>
+        <div id="show-content" class="list-group"></div>
+        <a href="#" class="flex mt-3">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-plus-circle-fill mt-1 ml-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+              />
+            </svg>
+          </div>
+          <button type="button" class="font-semibold ml-2 text-lg" onclick="pushDivTag(); return false;">Add a chapter to your course</button>
+        </a>
 
-            <label class="label mt-0">
-              <span class="label-text text-lg">Short Description</span>
-            </label>
-            <textarea id="shortDesc" name="shortDesc" class="mytextarea">Enter short description here</textarea>
-            <label class="label">
-              <span class="label-text text-lg">Long Description</span>
-            </label>
-            <textarea id="longDesc" name="longDesc" class="mytextarea">Enter long description here</textarea>
-            <label class="label">
-              <span class="label-text text-lg">Price</span>
-            </label>
-            <input type="number" placeholder="Course price" name="basePrice" class="input input-bordered" />
-            <label class="label">
-              <span class="label-text text-lg">Content</span>
-            </label>
-            <div id="show-content"></div>
-            <a href="#" class="flex mt-3">
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-plus-circle-fill mt-1 ml-2"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
-                  />
-                </svg>
-              </div>
-              <div class="font-semibold ml-2 text-lg" onclick="pushDivTag()">Add a chapter to your course</div>
-            </a>
+        <!-- <input type="file" name="image" class="file-input file-input-bordered w-full max-w-xs" /> -->
+        <button class="btn btn-block justify-self-center mt-16 w-full mb-5">Add course</button>
+        <!-- <button type="button" class="btn btn-outline">Add a chapter to your course</button> -->
+      </form>
+    </div>
+  </div>
+</main>
 
-            <!-- <input type="file" name="image" class="file-input file-input-bordered w-full max-w-xs" /> -->
-            <button class="btn btn-block justify-self-center mt-16 w-full mb-5">Add course</button>
-            <!-- <button type="button" class="btn btn-outline">Add a chapter to your course</button> -->
-          </form>
-        </div>
-      </div>
-    </main>
+<footer><%- include('../partials/footer'); %></footer>
+<script src="/script/typing_animation.js"></script>
+<script src="/script/on_scroll_animation.js"></script>
+<script>
+    const list = document.getElementById('show-content')
+    Sortable.create(list, {animation: 150});
 
-    <footer><%- include('../partials/footer'); %></footer>
-  </body>
-
-  <script src="/script/typing_animation.js"></script>
-  <script src="/script/on_scroll_animation.js"></script>
+    let form = document.querySelector('add-course-form')
+    form.addEventListener('submit', function (event) {
+        if (event.submitter.matches('.course-btn')) {
+            event.preventDefault()
+        }
+    })
+</script>
+</body>
 </html>
