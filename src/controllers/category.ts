@@ -2,8 +2,6 @@ import { asyncHandler } from '../middlewares/async'
 import { Category } from '../models/category'
 import { Course } from '../models/course'
 import { Review } from '../models/review'
-import { User } from '../models/user'
-import { Chapter } from '../models/chapter'
 import { getCategories } from '../utils/utils'
 
 const postAddCategory = asyncHandler(async (req, res, _next) => {
@@ -63,42 +61,6 @@ const getCourseList = asyncHandler(async (req, res) => {
   })
 })
 
-const getCourse = asyncHandler(async (req, res) => {
-  const categoriesResult = await getCategories()
-  const course = await Course.findOne({ _id: req.params.id })
-  const lecturer = await User.findById(course?.lecturer)
-  const reviewIds = course!.reviews
-  const reviews = await Promise.all(
-    reviewIds?.map(async (reviewId) => {
-      return await Review.findById(reviewId)
-    })
-  )
-  const chapterIds = course!.chapters
-  const chapters = await Promise.all(
-    chapterIds?.map(async (chapterId) => {
-      return await Chapter.findById(chapterId)
-    })
-  )
-  let totalStars = 0
-  let avgStars = 0
-  reviews.forEach(function (review) {
-    totalStars += review?.ratingStars!
-    avgStars = totalStars / reviews.length
-  })
-  let roundedAvgStars = Math.round(avgStars * 10) / 10
-
-  res.render('pages/course', {
-    isAuthenticated: req.isAuthenticated(),
-    avatar: req.cookies.avatar,
-    categories: categoriesResult,
-    course: course,
-    lecturer: lecturer,
-    reviews: reviews,
-    chapters: chapters,
-    avgStars: roundedAvgStars
-  })
-})
-
 const postDeleteCategory = asyncHandler(async (req, res) => {
   await Category.deleteOne({ _id: req.params.id })
   res.redirect('/category')
@@ -127,7 +89,6 @@ export {
   getCategoryList,
   getCourseList,
   postDeleteCategory,
-  getCourse,
   postEditCategoryName,
   postCollectFeedback,
   postEditFeedback
