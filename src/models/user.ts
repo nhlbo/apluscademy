@@ -9,6 +9,7 @@ export interface AuthToken {
 
 interface IUser extends mongoose.Document {
   name: string
+  gender: string
   email: string
   password: string
   isVerified: boolean
@@ -17,13 +18,7 @@ interface IUser extends mongoose.Document {
   facebook: string
   google: string
   tokens: AuthToken[]
-  profile: {
-    name: string
-    gender: string
-    location: string
-    website: string
-    picture: string
-  }
+  picture: string
   ownedCourses: []
   authoredCourses: []
   about: string
@@ -41,6 +36,7 @@ const userSchema = new mongoose.Schema<IUser>({
     type: String,
     trim: true
   },
+  gender: String,
   email: {
     type: String,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please add a valid email'],
@@ -65,15 +61,9 @@ const userSchema = new mongoose.Schema<IUser>({
   facebook: String,
   google: String,
   tokens: Array,
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: {
-      type: String,
-      default: generateAvatar()
-    }
+  picture: {
+    type: String,
+    default: generateAvatar()
   },
   ownedCourses: [
     {

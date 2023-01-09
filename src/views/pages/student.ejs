@@ -9,7 +9,7 @@
     <main class="">
       <div class="h-32 bg-[#111113]">
         <div class="ml-10 pt-12">
-          <div class="font-semibold text-white text-3xl ml-96"><%= student.profile.name %></div>
+          <div class="font-semibold text-white text-3xl ml-96"><%= studen.name %></div>
           <div class="text-white text-lg ml-96">VNU-HCM University of Science</div>
           <div class="flex justify-between">
             <div class="text-lg ml-96 mt-5">Learning new lessons & skills on A⁺cademy since 1996</div>
@@ -79,7 +79,7 @@
       <div class="flex -mt-32 ml-24 mr-24 rounded-box pb-5">
         <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
           <div
-            class="m-5 w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center bg-white bg-[url('<%= student.profile.picture %>')] border"
+            class="m-5 w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center bg-white bg-[url('<%= student.picture %>')] border"
           ></div>
         </div>
       </div>
@@ -138,7 +138,7 @@
           </div>
           <div class="h-1.5 w-12 bg-purple-800 mt-7"></div>
           <div class="mt-5">
-            <span class="font-semibold"><%= student.profile.name %></span> owned
+            <span class="font-semibold"><%= student.name %></span> owned
             <span class="font-semibold"><%= student.authoredCourses.length %></span> course(s)
           </div>
           <div class="mt-5">

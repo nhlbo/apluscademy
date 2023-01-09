@@ -267,7 +267,8 @@ const nukedb = async () => {
             basePrice: course.basePrice,
             image: course.thumbnail,
             reviews: reviewIds,
-            chapters: chapters
+            chapters: chapters,
+            category: category.name
           })
         })
       )

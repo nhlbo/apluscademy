@@ -30,7 +30,7 @@ const postAddLecturer = asyncHandler(async (req, res, next) => {
     const lecturer = await User.create({
       email: req.body.lecturerEmail,
       role: 'lecturer',
-      'profile.name': req.body.lecturerName,
+      name: req.body.lecturerName,
       isVerified: false,
       password: req.body.lecturerPassword
     })
