@@ -11,6 +11,8 @@ router.route('/verify').get(authController.isNotAuthenticated, authController.ge
 router.route('/verify').post(authController.isNotAuthenticated, authController.postVerifyEmail)
 router.route('/login').get(authController.isNotAuthenticated, authController.getLogin)
 router.route('/login/password').post(authController.postLoginPassword)
+router.route('/lock/:id').post(authController.postLock)
+router.route('/unlock/:id').post(authController.postUnlock)
 router.route('/logout').post(authController.postLogout)
 router.route('/oauth2/redirect/facebook').get(passport.authenticate('facebook'))
 router.route('/login/facebook/callback').get(authController.postLoginFacebook)
