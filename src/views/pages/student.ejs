@@ -9,7 +9,7 @@
     <main class="">
       <div class="h-32 bg-[#111113]">
         <div class="ml-10 pt-12">
-          <div class="font-semibold text-white text-3xl ml-96"><%= studen.name %></div>
+          <div class="font-semibold text-white text-3xl ml-96"><%= student.name %></div>
           <div class="text-white text-lg ml-96">VNU-HCM University of Science</div>
           <div class="flex justify-between">
             <div class="text-lg ml-96 mt-5">Learning new lessons & skills on A⁺cademy since 1996</div>
@@ -32,6 +32,15 @@
               Ho Chi Minh City, Viet Nam
             </div>
             <div class="flex mt-1">
+              <% if (student.isLock) { %>
+              <form action="/unlock/<%= student._id %>" method="post">
+                <input type="checkbox" onChange="this.form.submit()" class="toggle mr-5"/>
+              </form>
+              <% } else { %>
+              <form action="/lock/<%= student._id %>" method="post">
+                <input type="checkbox" onChange="this.form.submit()" class="toggle mr-5" checked/>
+              </form>
+              <% } %>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
