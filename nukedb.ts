@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { Category } from './src/models/category'
+import { Chapter } from './src/models/chapter'
 import { Course } from './src/models/course'
 import { Review } from './src/models/review'
 import { User, UserOTPVerification } from './src/models/user'
@@ -246,6 +247,14 @@ const nukedb = async () => {
               })
             })
           )
+          const chapters = await Promise.all(
+            course.chapters.map(async (chapter) => {
+              return await Chapter.create({
+                video: `https://apluscademy.sgp1.cdn.digitaloceanspaces.com/${chapter.video}`,
+                title: chapter.title
+              })
+            })
+          )
           const lecturer = lecturers[Math.floor(Math.random() * lecturers.length)]
           const reviewIds = reviews.map((review) => review._id)
           return await Course.create({
@@ -257,7 +266,8 @@ const nukedb = async () => {
             viewCount: course.viewCount,
             basePrice: course.basePrice,
             image: course.thumbnail,
-            reviews: reviewIds
+            reviews: reviewIds,
+            chapters: chapters
           })
         })
       )
