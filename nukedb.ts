@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { Category } from './src/models/category'
 import { Course } from './src/models/course'
 import { Review } from './src/models/review'
-import { User } from './src/models/user'
+import { User, UserOTPVerification } from './src/models/user'
 
 const MONGO_DB_URL = process.env.MONGO_DB_URL || ''
 
@@ -214,7 +214,7 @@ const data = {
 
 const nukedb = async () => {
   await User.collection.drop().then(() => console.log('User dropped'))
-  const userModel = await Promise.all(
+  const userModels = await Promise.all(
     users.map(async (user) => {
       return await User.create({ email: user.email, isVerified: true, role: user.role }).then(async (result) => {
         result.password = user.password
@@ -222,9 +222,10 @@ const nukedb = async () => {
       })
     })
   )
-  const students = userModel.filter((user) => user.role == 'student')
-  const lecturers = userModel.filter((user) => user.role == 'lecturer')
+  const students = userModels.filter((user) => user.role == 'student')
+  const lecturers = userModels.filter((user) => user.role == 'lecturer')
 
+  await UserOTPVerification.collection.drop().then(() => console.log('UserOTPVerification dropped'))
   await Category.collection.drop().then(() => console.log('Category dropped'))
   await Course.collection.drop().then(() => console.log('Course dropped'))
   await Review.collection.drop().then(() => console.log('Review dropped'))
@@ -232,8 +233,7 @@ const nukedb = async () => {
   await Promise.all(
     categories.map(async (category) => {
       const courses = category.courses
-      await Category.create({ name: category.name, image: category.image })
-      await Promise.all(
+      const courseModels = await Promise.all(
         courses.map(async (course) => {
           const reviews = await Promise.all(
             course.reviews.map(async (review) => {
@@ -247,7 +247,7 @@ const nukedb = async () => {
           )
           const lecturer = lecturers[Math.floor(Math.random() * lecturers.length)]
           const reviewIds = reviews.map(review => review._id)
-          await Course.create({
+          return await Course.create({
             lecturer: lecturer._id,
             title: course.title,
             shortDesc: course.shortDesc,
@@ -260,6 +260,8 @@ const nukedb = async () => {
           })
         })
       )
+      const courseIds = courseModels.map(course => course._id)
+      return await Category.create({ name: category.name, image: category.image, courses: courseIds })
     })
   ).then(() => {
     console.log('Category created')
