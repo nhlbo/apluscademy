@@ -51,12 +51,16 @@
         <% } else { %>
         <div class="pb-5">Create by <span class="font-semibold"> <%= lecturer.email %></span></div>
         <% } %>
+        <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
+          <div
+            class="m-5 w-44 h-44 rounded-full bg-cover bg-center flex items-center justify-center bg-white bg-[url('<%= lecturer.picture %>')] border"
+          ></div>
+        </div>
       </div>
       <div class="w-full flex">
         <!-- course description etc (1st half on udemy course) -->
         <div class="w-3/4 flex-auto mr-10 ml-10">
           <div>
-            <div class="text-xl font-semibold mb-7 mt-10">Lecturer info</div>
             <div class="text-xl font-semibold mb-7 mt-10">Course content</div>
             <div class="p-10 rounded-box border">
               <ul class="mb-10">
