@@ -7,15 +7,12 @@ const getCourseCreation = asyncHandler(async (req, res, next) => {
   next()
 })
 
-const getAddCourse = asyncHandler(async (req, res, next) => {
+const getAddCourse = asyncHandler(async (req, res) => {
   const categories = await getCategories()
   res.render('pages/add_course', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar, categories })
-  next()
 })
 
 const postAddCourse = asyncHandler(async (req, res, _next) => {
-  // const files: any = req.files
-  // console.log(files)
   const user = req.user
   await Course.create({
     lecturer: user?.id,
@@ -33,4 +30,15 @@ const postAddCourse = asyncHandler(async (req, res, _next) => {
     })
 })
 
-export { getCourseCreation, postAddCourse, getAddCourse }
+const getEditCourse = asyncHandler(async (req, res) => {
+  const categories = await getCategories()
+  res.render('pages/edit_course', { isAuthenticated: req.isAuthenticated(), avatar: req.cookies.avatar, categories })
+})
+
+const postEditCourse = asyncHandler(async (req, _res, _next) => {
+  const files: any = req.files
+  console.log(files)
+  console.log(req)
+})
+
+export { getCourseCreation, postAddCourse, getAddCourse, postEditCourse, getEditCourse }

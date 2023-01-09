@@ -1,8 +1,21 @@
+const submitForm = () => {
+  let divs = document.getElementById('show-content').getElementsByClassName('show-content-item');
+  for(let i = 0; i < divs.length; i++) {
+
+  }
+  let formData = new FormData();
+  let filesLength=document.getElementById('videoFile').files.length;
+  for(let i=0; i<filesLength; i++){
+    formData.append("videoFile[]", document.getElementById('videoFile').files[i]);
+    console.log(l)
+  }
+}
+
 let chapter = 0
 
 const pushDivTag = () => {
   chapter++
-  const divTagStr = `<div id="chapter-${chapter}" class="card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
+  const divTagStr = `<div id="chapter-${chapter}" class="show-content-item card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
  <button class="btn btn-sm btn-circle -right-3 -top-3 absolute course-btn" onclick="document.getElementById(this.parentNode.id).remove(); return false;">✕</button>
  <div class="card-body">
    <h2 class="card-title">Chapter</h2>
@@ -25,5 +38,5 @@ const pushDivTag = () => {
    autofocus
  />
 </div>`
-  document.getElementById('show-content').innerHTML += divTagStr
+  document.getElementById('show-content').insertAdjacentHTML('beforeend', divTagStr)
 }

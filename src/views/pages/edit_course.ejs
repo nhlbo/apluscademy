@@ -54,8 +54,8 @@
 <main class="h-full">
   <div class="flex mt-10 ml-24 mr-24 rounded-box pt-5 pb-5 mb-16 justify-center">
     <div class="flex ml-10 mr-10 w-1/2 px-5 pt-3">
-      <form id="add-course-form" class="form-control w-full" action="/course/add" method="post" enctype="multipart/form-data">
-        <span class="text-3xl font-semibold">Add a course</span>
+      <form id="edit-course-form" class="form-control w-full" action="/course/add" method="post" enctype="multipart/form-data">
+        <span class="text-3xl font-semibold">Edit course</span>
         <label class="label mt-5">
           <span class="label-text text-lg">Course Name</span>
         </label>
@@ -104,7 +104,7 @@
         </a>
 
         <!-- <input type="file" name="image" class="file-input file-input-bordered w-full max-w-xs" /> -->
-        <button class="btn btn-block justify-self-center mt-16 w-full mb-5 course-btn" onclick="submitForm(); return false;">Add course</button>
+        <button class="btn btn-block justify-self-center mt-16 w-full mb-5 course-btn" onclick="submitForm(); return false;">Edit course</button>
         <!-- <button type="button" class="btn btn-outline">Add a chapter to your course</button> -->
       </form>
     </div>
@@ -118,7 +118,7 @@
     const list = document.getElementById('show-content')
     Sortable.create(list, {animation: 150});
 
-    let form = document.querySelector('add-course-form')
+    let form = document.querySelector('edit-course-form')
     form.addEventListener('submit', function (event) {
         if (event.submitter.matches('.course-btn')) {
             event.preventDefault()
