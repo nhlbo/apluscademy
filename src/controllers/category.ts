@@ -4,7 +4,6 @@ import { Course } from '../models/course'
 import { Review } from '../models/review'
 import { User } from '../models/user'
 import { Chapter } from '../models/chapter'
-//import { Review } from '../models/review'
 import { getCategories } from '../utils/utils'
 
 const postAddCategory = asyncHandler(async (req, res, _next) => {
