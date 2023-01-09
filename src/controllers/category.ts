@@ -50,12 +50,17 @@ const getCourseList = asyncHandler(async (req, res) => {
     if (err) throw err
     await Category.find({}).exec(async function (err, cates) {
       if (err) throw err
-      res.render('pages/course_list', {
-        isAuthenticated: req.isAuthenticated(),
-        avatar: req.cookies.avatar,
-        categories: categoriesResult,
-        cate: cate,
-        cates: cates
+      if (!cate) throw err
+      await Course.find({ category: cate.name }).exec(async function (err, courses) {
+        if (err) throw err
+        res.render('pages/course_list', {
+          isAuthenticated: req.isAuthenticated(),
+          avatar: req.cookies.avatar,
+          categories: categoriesResult,
+          cate: cate,
+          courses: courses,
+          cates: cates
+        })
       })
     })
   })
