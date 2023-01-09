@@ -5,7 +5,7 @@
       <label tabindex="0" class="ml-3 mr-9 text-lg p-7 group-hover:text-purple-700"
         ><a href="/category">Category</a></label
       >
-      <ul tabindex="0" class="dropdown-content menu pr-1 pl-1 ml-5 shadow-xl rounded-xl w-52 bg-white border mt-5">
+      <ul tabindex="0" class="dropdown-content menu pr-1 pl-1 ml-5 shadow-xl rounded-xl w-fit bg-white border mt-5">
         <% categories.forEach(function(category) { %>
         <li class="dropdown dropdown-hover mt-1">
           <a class="bg-white hover:bg-gray-400 block whitespace-no-wrap rounded-lg" href="/category/<%= category._id %>"
@@ -13,7 +13,7 @@
           </a>
           <ul
             tabindex="0"
-            class="dropdown-content menu shadow-xl rounded-xl pl-1 pr-1 text-gray-700 bg-white ml-1 border w-52 -mt-1"
+            class="dropdown-content menu shadow-xl rounded-xl pl-1 pr-1 text-gray-700 bg-white ml-1 border w-fit -mt-1"
           >
             <% category.courses.forEach((course) => { %> <% if (category.courses.length > 0) { %>
             <li class="dropdown dropdown-hover bg-white mt-1">
