@@ -38,13 +38,13 @@ const getProfile = asyncHandler(async (req, res) => {
 const updateAvatar = asyncHandler(async (req, res, _next) => {
   const file: any = req.file
   const avatarURL = file?.location
-  await User.findOneAndUpdate(req.user!.id, { 'picture': avatarURL })
+  await User.findOneAndUpdate(req.user!.id, { picture: avatarURL })
   res.cookie('avatar', avatarURL, { httpOnly: true })
   res.redirect('/profile')
 })
 
 const postChangeName = asyncHandler(async (req, res) => {
-  await User.findOneAndUpdate(req.user!.id, { 'name': req.body.newName })
+  await User.findOneAndUpdate(req.user!.id, { name: req.body.newName })
   res.redirect('/profile')
 })
 

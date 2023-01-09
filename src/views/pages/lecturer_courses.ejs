@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+    <!--Screen begins-->
+    <main class="w-screen">
+      <div class="w-full">
+        <!--Search query display-->
+        <div class="flex">
+          <div class="ml-16 mt-5 text-3xl font-semibold">Courses by <%=userName %></div>
+        </div>
+        <!--Course grid-->
+        <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">
+          <% courses.forEach(function(course) { %>
+          <a href="/course/<%=course._id%>">
+            <div class="card w-45 bg-base-100 shadow-lg">
+              <figure><img src="<%= course.image%>" alt="Course name" /></figure>
+              <div class="card-body">
+                <h2 class="card-title"><%=course.title %></h2>
+                <h3><%= course.viewCount%> views</h3>
+                <p><%=course.shortDesc%></p>
+                <div class="card-actions justify-end">
+                  <div
+                    class="rating"
+                    data-totalStars="<%= course.totalRatingStars%>"
+                    data-reviewCount="<%=course.reviewCount%>"
+                  >
+                    <input disabled type="radio" name="rating-<%=course.id%>" class="mask mask-star-2 bg-orange-400" />
+                    <input disabled type="radio" name="rating-<%=course.id%>" class="mask mask-star-2 bg-orange-400" />
+                    <input disabled type="radio" name="rating-<%=course.id%>" class="mask mask-star-2 bg-orange-400" />
+                    <input disabled type="radio" name="rating-<%=course.id%>" class="mask mask-star-2 bg-orange-400" />
+                    <input disabled type="radio" name="rating-<%=course.id%>" class="mask mask-star-2 bg-orange-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
