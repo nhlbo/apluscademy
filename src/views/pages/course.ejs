@@ -4,6 +4,16 @@
     <link rel="stylesheet" href="/css/style.scss" />
     <link rel="stylesheet" href="/css/style.css" />
     <%- include('../partials/head'); %>
+    <script
+      src="https://cdn.tiny.cloud/1/2vyvzdwdb7w3p5f46wgu7ucrhdgskpwh4b8lbde27tv094sg/tinymce/6/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script>
+        tinymce.init({
+            selector: '.mytextarea',
+            readonly : true
+        })
+    </script>
   </head>
   <body class="">
     <header><%- include('../partials/header'); %></header>
@@ -55,7 +65,8 @@
               </ul>
             </div>
             <div class="text-xl font-semibold mb-7">Description</div>
-            <div><%= course.longDesc %></div>
+<!--            <div><%= course.longDesc %></div>-->
+            <textarea id="longDesc" name="longDesc" class="mytextarea"><%= course.longDesc %></textarea>
             <div class="text-xl font-semibold mt-10 mb-10">Previous students' feedback</div>
             <div class="ml-10 mr-20">
               <% (reviews.forEach(function(review) { %>
