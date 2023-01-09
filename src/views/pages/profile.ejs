@@ -13,11 +13,15 @@
           <div class="pl-5 w-1/5 pr-5">
             <div class="drawer-side">
               <label class="drawer-overlay"></label>
-              <ul class="menu p-4 w-80 bg-base-100 text-base-content text-lg">
+              <ul class="menu p-2 w-full bg-base-100 text-base-content text-lg">
                 <!-- Sidebar content here -->
-                <li><a class="w-3/4" href="/profile">Profile</a></li>
-                <li><a class="w-3/4">Favorite</a></li>
-                <li><a class="w-3/4">Owned Courses</a></li>
+                <li><a class="text-left" href="/profile">Profile</a></li>
+                <li><a class="text-left">Favorite</a></li>
+                <% if (userRole == "lecturer") {%>
+                <li>
+                  <a class="text-left" href="lecturer_courses">Manage Courses</a>
+                </li>
+                <% } %>
               </ul>
             </div>
           </div>
@@ -145,13 +149,13 @@
 
                 <% if (userRole == "student") { %>
                 <div class="text-4xl pl-64 pt-16">
-                  <span class="opacity-80">Happy learning,</span>&nbsp;
-                  <span class="font-semibold"> <%= userName %>! </span>
+                  <span class="opacity-80">Happy learning,</span>
+                  <span class="font-semibold"><%=userName%>!</span>
                 </div>
-                <% } %> <% if (userRole == "lecturer") { %>
+                <% } else if (userRole == "lecturer") { %>
                 <div class="text-4xl pl-64 pt-16">
-                  <span class="opacity-80">Happy teaching,</span>&nbsp;
-                  <span class="font-semibold"> <%= userName %>! </span>
+                  <span class="opacity-80">Happy teaching,</span>
+                  <span class="font-semibold"><%=userName%>!</span>
                 </div>
                 <% } %>
               </div>
@@ -244,7 +248,6 @@
                   <span class="font-semibold capitalize"><%=userRole%></span> since
                   <span class="font-semibold"><%=dateCreated%></span>
                 </div>
-                <div>Total owned courses: ##</div>
               </div>
 
               <div class="text-2xl font-semibold ml-10 mb-2 mt-10" id="password-form-location">Account security</div>
