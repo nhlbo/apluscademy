@@ -6,11 +6,13 @@
   <body>
     <header><%- include('../partials/header'); %></header>
     <main class="w-screen">
+      <% if (user) { %> <% if (user.role == "admin") { %>
       <div class="flex">
         <a class="w-screen flex justify-end mt-5 mr-16" href="/category/add"
           ><button class="btn">Add category</button></a
         >
       </div>
+      <% } %> <% } %>
       <div class="w-full">
         <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">
           <% cates.forEach(function(category) { %>
@@ -26,7 +28,7 @@
               </div>
               <div class="flex justify-between">
                 <div class="font-semibold text-xl"><%= category.name %></div>
-                <div class="mt-1"><span><%= category.length %></span>categories</div>
+                <div class="mt-1"><span><%= category.courses.length %></span> courses</div>
               </div>
             </a>
           </div>

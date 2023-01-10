@@ -11,7 +11,7 @@
         <div class="flex">
           <div class="ml-16 mt-5 text-3xl font-semibold mb-2"><%= cate.name %></div>
           <div class="w-screen flex justify-end mt-4 mr-16">
-            <% if (user.role == "admin") { %>
+            <% if (user) { %> <% if (user.role == "admin") { %>
             <div>
               <label for="my-modal-3" class="btn mt-1">edit category name</label>
               <input type="checkbox" id="my-modal-3" class="modal-toggle" />
@@ -35,7 +35,7 @@
                 </div>
               </div>
             </div>
-            <% } %>
+            <% } %> <% } %>
           </div>
         </div>
         <div class="grid grid-cols-4 gap-5 ml-24 mr-24 mt-5 mb-24">

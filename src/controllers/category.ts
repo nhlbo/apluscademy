@@ -32,6 +32,7 @@ const getAddCategory = asyncHandler(async (req, res) => {
 })
 
 const getCategoryList = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user?.id)
   const categoriesResult = await getCategories()
   await Category.find({}).exec(async function (err, cates) {
     if (err) throw err
@@ -40,14 +41,15 @@ const getCategoryList = asyncHandler(async (req, res) => {
       avatar: req.cookies.avatar,
       categories: categoriesResult,
       cates: cates,
-      categoryImg: req.cookies.categoryImg
+      categoryImg: req.cookies.categoryImg,
+      user: user
     })
   })
 })
 
 const getCourseList = asyncHandler(async (req, res) => {
   const categoriesResult = await getCategories()
-  const user = User.findById(req.user?.id)
+  const user = await User.findById(req.user?.id)
   await Category.findOne({ _id: req.params.id }).exec(async function (err, cate) {
     if (err) throw err
     await Category.find({}).exec(async function (err, cates) {
