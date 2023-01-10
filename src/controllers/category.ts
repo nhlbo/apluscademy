@@ -3,6 +3,7 @@ import { Category } from '../models/category'
 import { Course } from '../models/course'
 import { Review } from '../models/review'
 import { getCategories } from '../utils/utils'
+import { User } from '../models/user'
 
 const postAddCategory = asyncHandler(async (req, res, _next) => {
   const file: any = req.file
@@ -46,6 +47,7 @@ const getCategoryList = asyncHandler(async (req, res) => {
 
 const getCourseList = asyncHandler(async (req, res) => {
   const categoriesResult = await getCategories()
+  const user = User.findById(req.user?.id)
   await Category.findOne({ _id: req.params.id }).exec(async function (err, cate) {
     if (err) throw err
     await Category.find({}).exec(async function (err, cates) {
@@ -59,7 +61,8 @@ const getCourseList = asyncHandler(async (req, res) => {
           categories: categoriesResult,
           cate: cate,
           courses: courses,
-          cates: cates
+          cates: cates,
+          user: user
         })
       })
     })

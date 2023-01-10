@@ -42,58 +42,65 @@
         <!-- --------------------------- -->
         <!-- COURSE LISTING -->
         <!-- Most Viewed courses -->
-        <div class="h-screen bg-[#ffffff] pl-10 pr-10 ml-5 mr-5">
+        <div class="bg-[#ffffff] pl-10 pr-10 ml-5 mr-5 mb-40">
           <!--text-->
           <div class="ml-5 mb-2">
-            <div class="text-3xl font-semibold">Most Viewed Courses</div>
+            <div class="text-3xl font-semibold mb-16">Most Viewed Courses</div>
           </div>
           <!--carousel-->
           <div class="h-50 flex">
             <div class="carousel carousel-center p-4 space-x-4 rounded-box">
               <% mostViewedCourses.forEach(function(course) { %>
               <a href="/course/<%=course._id%>" carousel-item>
-                <div class="card w-45 bg-base-100 shadow-lg">
-                  <figure><img src="<%= course.image%>" alt="Course name" /></figure>
-                  <div class="card-body">
-                    <h2 class="card-title"><%=course.title %></h2>
-                    <h3><%= course.viewCount%> views</h3>
-                    <p><%=course.shortDesc%></p>
-                    <div class="card-actions justify-end">
-                      <div
-                        class="rating"
-                        data-totalStars="<%= course.totalRatingStars%>"
-                        data-reviewCount="<%=course.reviewCount%>"
-                      >
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
+                <div class="card w-72 bg-base-100 shadow-lg">
+                  <figure class="h-40"><img src="<%= course.image%>" alt="Course name" class="object-cover" /></figure>
+                  <div class="card-body h-full h-60 relative">
+                    <h2 class="card-title -mt-4"><%=course.title %></h2>
+
+                    <div class="text-ellipsis overflow-hidden w-full">
+                      <div class="mt-1 opacity-75"><%=course.shortDesc%></div>
+                    </div>
+                    <div class="bottom-3 absolute w-full">
+                      <div class="flex gap-12">
+                        <h3><%= course.viewCount%> views</h3>
+                        <div class="card-actions -ml-5">
+                          <div
+                            class="rating"
+                            data-totalStars="<%= course.totalRatingStars%>"
+                            data-reviewCount="<%=course.reviewCount%>"
+                          >
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -105,58 +112,63 @@
         </div>
 
         <!-- Newest Courses-->
-        <div class="h-screen bg-[#ffffff] pl-10 pr-10 ml-5 mr-5">
+        <div class="bg-[#ffffff] pl-10 pr-10 ml-5 mr-5 mb-40">
           <!--text-->
           <div class="ml-5 mb-2">
-            <div class="text-3xl font-semibold">Newest Courses</div>
+            <div class="text-3xl font-semibold mb-16">Newest Courses</div>
           </div>
           <!--carousel-->
           <div class="h-50 flex">
             <div class="carousel carousel-center p-4 space-x-4 rounded-box">
               <% newestCourses.forEach(function(course) { %>
               <a href="/course/<%=course._id%>" carousel-item>
-                <div class="card w-45 bg-base-100 shadow-lg">
-                  <figure><img src="<%= course.image%>" alt="Course name" /></figure>
-                  <div class="card-body">
-                    <h2 class="card-title"><%=course.title %></h2>
-                    <h3><%= course.viewCount%> views</h3>
-                    <p><%=course.shortDesc%></p>
-                    <div class="card-actions justify-end">
-                      <div
-                        class="rating"
-                        data-totalStars="<%= course.totalRatingStars%>"
-                        data-reviewCount="<%=course.reviewCount%>"
-                      >
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
-                        <input
-                          disabled
-                          type="radio"
-                          name="rating-<%=course.id%>"
-                          class="mask mask-star-2 bg-orange-400"
-                        />
+                <div class="card w-72 bg-base-100 shadow-lg">
+                  <figure class="h-40"><img src="<%= course.image%>" class="object-cover" alt="Course name" /></figure>
+                  <div class="card-body h-full h-60 relative">
+                    <h2 class="card-title -mt-5 truncate"><%=course.title %></h2>
+
+                    <p class="opacity-75 mt-1"><%=course.shortDesc%></p>
+                    <div class="absolute bottom-3 w-full">
+                      <div class="flex gap-12">
+                        <h3><%= course.viewCount%> views</h3>
+                        <div class="card-actions -ml-5">
+                          <div
+                            class="rating"
+                            data-totalStars="<%= course.totalRatingStars%>"
+                            data-reviewCount="<%=course.reviewCount%>"
+                          >
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                            <input
+                              disabled
+                              type="radio"
+                              name="rating-<%=course.id%>"
+                              class="mask mask-star-2 bg-orange-400"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
