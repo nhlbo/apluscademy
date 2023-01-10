@@ -9,10 +9,10 @@
       referrerpolicy="origin"
     ></script>
     <script>
-        tinymce.init({
-            selector: '.mytextarea',
-            readonly : true
-        })
+      tinymce.init({
+        selector: '.mytextarea',
+        readonly: true
+      })
     </script>
   </head>
   <body class="">
@@ -65,7 +65,10 @@
             <div class="p-10 rounded-box border">
               <ul class="mb-10">
                 <% (chapters.forEach(function(chapter) { %>
-                <div id="<%= chapter._id %>" class="show-content-item card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item">
+                <div
+                  id="<%= chapter._id %>"
+                  class="show-content-item card card-compact card-bordered w-full bg-base-100 shadow-xl px-8 pb-6 mb-5 list-group-item"
+                >
                   <div class="card-body">
                     <h2 class="card-title"><%= chapter.title %></h2>
                   </div>
@@ -76,8 +79,8 @@
                 <% })) %>
               </ul>
             </div>
-            <div class="text-xl font-semibold mb-7">Description</div>
-<!--            <div><%= course.longDesc %></div>-->
+            <div class="text-xl font-semibold mb-7 mt-12">Description</div>
+            <!--            <div><%= course.longDesc %></div>-->
             <textarea id="longDesc" name="longDesc" class="mytextarea"><%= course.longDesc %></textarea>
             <div class="text-xl font-semibold mt-10 mb-10">Previous students' feedback</div>
             <div class="ml-10 mr-20">
@@ -132,22 +135,19 @@
         </div>
 
         <!-- price tag & things (2nd half on udemy course) -->
-        <div class="w-1/4 flex-auto border mr-10 ml-10 bg-white rounded-box p-2 -mt-10 shadow-2xl h-3/4 z-10">
-          <img src="<%= course.image %>" class="w-full rounded-box" />
-          <div class="text-xl font-semibold mb-5 mt-5 ml-5"><%= course.basePrice %> $</div>
-          <button class="btn w-full mb-2">Add course</button>
-          <button class="btn w-full btn-outline">Add to watch list</button>
-          <!-- <div class="ml-5 mt-5">
-            <div class="font-semibold mb-2">This course includes:</div>
-            <div class="ml-10">
-              <div>69 videos</div>
-              <div>69 videos</div>
-              <div>69 videos</div>
-              <div>69 videos</div>
-              <div>69 videos</div>
-              <div>69 videos</div>
+        <div class="w-1/4">
+          <div class="mr-5 flex-auto fixed border bg-white rounded-box p-3 -mt-96 shadow-2xl z-10">
+            <img src="<%= course.image %>" class="w-full rounded-box" />
+            <div class="text-xl font-semibold mb-5 mt-5 ml-5"><%= course.basePrice %> $</div>
+            <button class="btn w-full mb-2">Add course</button>
+            <button class="btn w-full btn-outline">Add to watch list</button>
+            <div class="ml-5 mt-5">
+              <div class="font-semibold mb-2">This course includes:</div>
+              <ul class="ml-10 list-disc">
+                <li class=""><%= course.chapters.length%> chapters.</li>
+              </ul>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </main>
