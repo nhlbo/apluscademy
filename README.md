@@ -75,12 +75,32 @@ yarn devStartServer
 
 ![img-00012.jpg](./img/img-00012.jpg)
 
+## Course add
+
+![img-00018.jpg](./img/img-00018.jpg)
+
+![img-00022.jpg](./img/img-00022.jpg)
+
+![img-00021.jpg](./img/img-00021.jpg)
+
+## Course edit
+
+![img-00023.jpg](./img/img-00023.jpg)
+
+![img-00020.jpg](./img/img-00020.jpg)
+
+![img-00019.jpg](./img/img-00019.jpg)
+
+## Rearrange Course chapter
+
+![gif-00001.jpg](./img/gif-00001.gif)
+
 ## Course view
 
 ![img-00014.jpg](./img/img-00014.jpg)
 
 ![img-00015.jpg](./img/img-00015.jpg)
 
-![img-00016.jpg](./img/img-00016.jpg)
+![img-00024.jpg](./img/img-00024.jpg)
 
 ![img-00017.jpg](./img/img-00017.jpg)
